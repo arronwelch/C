@@ -6,5 +6,5 @@
 #include <stdio.h>
 int main()
 {
-    printf("hello,world\nas");
+    printf("hello, world\n");
 }
