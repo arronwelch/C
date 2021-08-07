@@ -10,15 +10,21 @@
 void Fahr2Celsius(void);
 void Celsius2Fahr(void);
 void Fahr2CelsiusFor(void);
+void Fahr2CelsiusForReverse(void);
+void Fahr2CelsiusForDefine(void);
 
 int main()
 {
-    printf("\n[Run Fahr2Celsius()]\n");
-    Fahr2Celsius();
-    printf("\n[Run Celsius2Fahr()]\n");
-    Celsius2Fahr();
-    printf("\n[Run Fahr2CelsiusFor()]\n");
-    Fahr2CelsiusFor();
+    // printf("\n[Run Fahr2Celsius()]\n");
+    // Fahr2Celsius();
+    // printf("\n[Run Celsius2Fahr()]\n");
+    // Celsius2Fahr();
+    // printf("\n[Run Fahr2CelsiusFor()]\n");
+    // Fahr2CelsiusFor();
+    // printf("\n[Run Fahr2CelsiusForReverse()]\n");
+    // Fahr2CelsiusForReverse();
+    printf("\n[Run Fahr2CelsiusForDefine()]\n");
+    Fahr2CelsiusForDefine();
 }
 
 void Fahr2Celsius(void)
@@ -83,5 +89,28 @@ void Fahr2CelsiusFor(void)
 
     printf("fahr\tcelsius\n");
     for (fahr = 0; fahr <= 300;fahr = fahr + 20)
+        printf("%3d %6.1f\n",fahr, (5.0/9.0)*(fahr-32));
+}
+
+/* print Fahrenheit-Celsius table */
+void Fahr2CelsiusForReverse(void)
+{
+    int fahr;
+
+    printf("fahr\tcelsius\n");
+    for (fahr = 300; fahr >= 0;fahr = fahr - 20)
+        printf("%3d %6.1f\n",fahr, (5.0/9.0)*(fahr-32));
+}
+
+/* print Fahrenheit-Celsius table */
+#define LOWER     0    /* lower limit of table */ 
+#define UPPER     300  /* upper limit */ 
+#define STEP      20   /* step size */
+void Fahr2CelsiusForDefine(void)
+{
+    int fahr;
+
+    printf("fahr\tcelsius\n");
+    for (fahr = LOWER; fahr <= UPPER;fahr = fahr + STEP)
         printf("%3d %6.1f\n",fahr, (5.0/9.0)*(fahr-32));
 }
