@@ -9,12 +9,16 @@
 
 void Fahr2Celsius(void);
 void Celsius2Fahr(void);
+void Fahr2CelsiusFor(void);
 
 int main()
 {
+    printf("\n[Run Fahr2Celsius()]\n");
     Fahr2Celsius();
-    printf("//*******************************************//\n");
+    printf("\n[Run Celsius2Fahr()]\n");
     Celsius2Fahr();
+    printf("\n[Run Fahr2CelsiusFor()]\n");
+    Fahr2CelsiusFor();
 }
 
 void Fahr2Celsius(void)
@@ -70,4 +74,14 @@ void Celsius2Fahr(void)
         printf("%6.1f\t%6.2f\n",celsius,fahr);
         celsius = celsius + step;
     }
+}
+
+/* print Fahrenheit-Celsius table */
+void Fahr2CelsiusFor(void)
+{
+    int fahr;
+
+    printf("fahr\tcelsius\n");
+    for (fahr = 0; fahr <= 300;fahr = fahr + 20)
+        printf("%3d %6.1f\n",fahr, (5.0/9.0)*(fahr-32));
 }
