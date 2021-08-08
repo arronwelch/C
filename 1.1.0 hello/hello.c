@@ -6,8 +6,5 @@
 #include <stdio.h>
 int main()
 {
-    printf("hello, world\
-a\
-    b\134 \
-  c\n");
+    printf("hello, world\n");
 }
