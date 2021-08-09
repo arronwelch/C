@@ -1,7 +1,7 @@
 #include <stdio.h>
 // int power(int m, int n);
 // int power(int , int );//formal parameter names are optional
-int power();/* (old-style version) */
+int power(); /* (old-style version) */
 int powerf(int base, int n);
 /* test power function */
 int main()
@@ -23,8 +23,7 @@ int main()
 
 /* power: raise base to n-th power; n >= 0 */
 /* (old-style version) */
-int power(base,n)
-int base, n;
+int power(base, n) int base, n;
 {
     int i, p;
     p = 1;
@@ -36,8 +35,8 @@ int base, n;
 /* power: raise base to n-th power; n >= 0; version 2 */
 int powerf(int base, int n)
 {
-int p;
-for (p = 1; n > 0; --n)
-p = p * base;
-return p;
+    int p;
+    for (p = 1; n > 0; --n)
+        p = p * base;
+    return p;
 }
