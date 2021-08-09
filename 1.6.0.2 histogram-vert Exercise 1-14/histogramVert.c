@@ -19,7 +19,7 @@ int main()
     for (i = 0; i < WORD_MAX_LENGTH; ++i)
         count[i] = 0;
 
-    while ((c = getchar()) != '\\')
+    while ((c = getchar()) != EOF)
     {
         if (c == ' ' || c == '\n' || c == '\t')
         {
