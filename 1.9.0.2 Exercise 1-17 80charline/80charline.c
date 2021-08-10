@@ -11,7 +11,7 @@ main()
 
     while ((len = getline(line, MAXLINE)) > 0)
         if (len > LIMIT)
-            printf("%s", line);
+            printf("\n>>>>>\n%s<<<<<\n\n", line);
 
     return 0;
 }
