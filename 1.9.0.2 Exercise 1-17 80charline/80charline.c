@@ -4,7 +4,7 @@
 int getline(char line[], int maxline);
 
 /* print the longest input line */
-main()
+int main()
 {
     int len;               /* current line length */
     char line[MAXLINE];    /* current input line */

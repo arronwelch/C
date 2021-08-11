@@ -1,21 +1,24 @@
 #include <stdio.h>
 #define MAXLINE 1000 /* maximum input line length */
 int getline(char line[], int maxline);
-int deleteTrailingSpace(char s[],int length);
+void reverse(char from[],char to[],int length);
 /* print the longest input line */
 int main()
 {
     int len;               /* current line length */
+
     char line[MAXLINE];    /* current input line */
+    char reline[MAXLINE];  /* reverse current input line */
 
     while ((len = getline(line, MAXLINE)) > 0)
-    {
-        deleteTrailingSpace(line,len);
-        printf("%s<|\n",line);
+    {        
+        reverse(line,reline,len);
+        printf("%s",reline);
     }
 
     return 0;
 }
+
 /* getline: read a line into s, return length */
 int getline(char s[], int lim)
 {
@@ -30,18 +33,18 @@ int getline(char s[], int lim)
     s[i] = '\0';
     return i;
 }
-/* delete trailing blanks, tabs and entirely blank lines */
-int deleteTrailingSpace(char s[],int length)
+
+/* reverse: reverse 'from' into 'to'; assume to is big enough */
+void reverse(char from[],char to[],int length)
 {
     int i;
+
+    i = 0;
     if(length > 1)
     {
-        for ( i = length-2; s[i] == ' ' || s[i] == '\t'; i--);
-
-        //s[i+1] = '\n';
-        s[i+1] = '\0';
-        //s[i+2] = '\0';
+        for(;i < length-1; i++)
+            to[i] = from[length - 2 - i];        
     }
-
-    return i+1;
+    to[i] = '\n';
+    to[i+1] = '\0';
 }
