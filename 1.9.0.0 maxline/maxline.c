@@ -3,7 +3,7 @@
 int getline(char line[], int maxline);
 void copy(char to[], char from[]);
 /* print the longest input line */
-main()
+int main()
 {
     int len;               /* current line length */
     int max;               /* maximum length seen so far */
@@ -24,7 +24,7 @@ main()
 int getline(char s[], int lim)
 {
     int c, i;
-    for (i = 0; i < lim - 1 && (c = getchar()) != '~' && c != '\n'; ++i)
+    for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; ++i)
         s[i] = c;
     if (c == '\n')
     {
