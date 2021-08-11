@@ -2,7 +2,7 @@
 #define MAXLINE 1000 /* maximum input line length */
 #define LIMIT 80 /*  print all input lines that are longer than 80 characters */
 int getline(char line[], int maxline);
-void copy(char to[], char from[]);
+
 /* print the longest input line */
 main()
 {
@@ -11,7 +11,11 @@ main()
 
     while ((len = getline(line, MAXLINE)) > 0)
         if (len > LIMIT)
-            printf("\n>>>>>\n%s<<<<<\n\n", line);
+        {
+            printf("\n--->>>>\n");
+            printf("lines that are longer than 80 characters:\n%s",line);
+            printf("\n<<<<---\n");
+        }
 
     return 0;
 }
@@ -28,12 +32,4 @@ int getline(char s[], int lim)
     }
     s[i] = '\0';
     return i;
-}
-/* copy: copy 'from' into 'to'; assume to is big enough */
-void copy(char to[], char from[])
-{
-    int i;
-    i = 0;
-    while ((to[i] = from[i]) != '\0')
-        ++i;
 }
