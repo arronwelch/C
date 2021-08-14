@@ -1,22 +1,22 @@
 #include <stdio.h>
 
-#define TAB_LENGTH 4
+#define TABNUM 4
 
-int main(void)
+int main()
 {
   int c;
-  unsigned int nr_of_spaces;
+  unsigned int spaceCount;
 
   while ((c = getchar()) != EOF)
   {
     if (c == '\t')
     {
-      nr_of_spaces = TAB_LENGTH;
+      spaceCount = TABNUM;
 
-      while (nr_of_spaces)
+      while (spaceCount)
       {
-        putchar('.');
-        --nr_of_spaces;
+        putchar('.');//replace ' ' for display space
+        --spaceCount;
       }
     }
     else
