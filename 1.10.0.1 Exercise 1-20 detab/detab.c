@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define TABNUM 4
+#define TABNUM 8
 
 int main()
 {

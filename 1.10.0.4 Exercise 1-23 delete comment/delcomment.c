@@ -38,7 +38,7 @@ void rcomment(int c)
         {
             //putchar(c);
             //rcomment(d);
-            endcomment();
+            //endcomment();
         }
         else 
         {
