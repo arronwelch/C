@@ -18,6 +18,8 @@
 #include<limits.h>
 #include<float.h>
 
+int strlen(char s[]);
+
 int main(void)
 {
 	/* ranges of various floating-point types through calculation */
@@ -63,6 +65,42 @@ int main(void)
     	printf("Maximum Unsigned Short %d\n", USHRT_MAX);
     	printf("Maximum Unsigned Int %u\n", UINT_MAX);
     	printf("Maximum Unsigned Long %lu\n", ULONG_MAX);
+
+		putchar('\041');
+		putchar('\x21');
+
+		printf("%ld\n", 2147483648L);
+		printf("%lu\n", 2147483648L);
+
+		printf("%f\n", 123.4);
+		printf("%f\n", \
+		123.4e-2);
+
+		printf("hello,"   
+		"world");
+
+		printf("hello,"
+		"world" 
+		"length ="
+		"%d",strlen("hello,"
+		"world"));//The standard library function strlen(s) returns the length of its character string \
+                                             argument s, excluding the terminal '\0'
+
+		enum boolean { NO = -2, YES = -2, TEST};
+		printf("\n%d %d %d",NO,YES,TEST);
+
+		enum months { JAN = 1, FEB, MAR, APR, MAY, JUN,
+		JUL, AUG, SEP, OCT, NOV, DEC };
+		/* FEB = 2, MAR = 3, etc. */
     	
 	return 0;
+}
+
+/* strlen: return length of s */
+int strlen(const char s[])
+{
+	int i;
+	while (s[i] != '\0')
+	++i;
+	return i;
 }
