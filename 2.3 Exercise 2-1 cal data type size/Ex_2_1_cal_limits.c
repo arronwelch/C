@@ -18,7 +18,7 @@
 #include<limits.h>
 #include<float.h>
 
-int strlen(char s[]);
+int strlen(const char s[]);
 
 int main(void)
 {
@@ -92,6 +92,12 @@ int main(void)
 		enum months { JAN = 1, FEB, MAR, APR, MAY, JUN,
 		JUL, AUG, SEP, OCT, NOV, DEC };
 		/* FEB = 2, MAR = 3, etc. */
+
+		printf("\n%f\n", 4.0/5.0/3.0);
+
+		printf("\n%d\n", (-4 >= 5) == (8 < 7));
+		printf("%d\n", -4 >= 5 != 8 < 7);
+		printf("%d\n", (-4 >= 5) != (8 < 7));
     	
 	return 0;
 }
