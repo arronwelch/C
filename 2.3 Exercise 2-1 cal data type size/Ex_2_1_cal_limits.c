@@ -86,18 +86,45 @@ int main(void)
 		"world"));//The standard library function strlen(s) returns the length of its character string \
                                              argument s, excluding the terminal '\0'
 
-		enum boolean { NO = -2, YES = -2, TEST};
+		enum boolean { NO = -2, YES = -2, TEST};//Values need not be distinct in the same enumeration!
 		printf("\n%d %d %d",NO,YES,TEST);
 
-		enum months { JAN = 1, FEB, MAR, APR, MAY, JUN,
-		JUL, AUG, SEP, OCT, NOV, DEC };
+		//TEST = 3;
+
+		enum months { JAN = 1, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC };//Names in different enumerations(months and boolean) must be distinct!
 		/* FEB = 2, MAR = 3, etc. */
+
+		//typedef enum monthsss { TMW } monthsss_type;
+
+		enum monthsss { TMW } ;//[Definition the enumeration monthsss with initial variable TMW]
+		enum monthsss aaadfgg = 6;//[Declared monthsss's enum types's variable aaadfgg]:\
+		Although variables of enum types may be declared,\
+		compilers need not check that what you store in such a variable is a valid value for the enumeration.
+		printf("\naaadfgg:%d",aaadfgg);
 
 		printf("\n%f\n", 4.0/5.0/3.0);
 
 		printf("\n%d\n", (-4 >= 5) == (8 < 7));
 		printf("%d\n", -4 >= 5 != 8 < 7);
 		printf("%d\n", (-4 >= 5) != (8 < 7));
+
+		enum cardsuit 
+		{
+			Clubs,
+			Diamonds,
+			Hearts,
+			Spades
+		};
+
+		struct card 
+		{
+			enum cardsuit suit;
+			short int value;
+		} hand[13];
+
+		enum cardsuit trump = Spades;
+		trump = -1;
+		hand[0].suit = -1;
     	
 	return 0;
 }
