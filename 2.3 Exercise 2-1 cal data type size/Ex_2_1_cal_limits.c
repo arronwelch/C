@@ -108,6 +108,13 @@ int main(void)
 		printf("%d\n", -4 >= 5 != 8 < 7);
 		printf("%d\n", (-4 >= 5) != (8 < 7));
 
+		short int si;
+		si = 0x12345678L;
+		printf("\nshort int si= %x",si);//may draw a warning, but they are not illegal.
+		unsigned short int usi;
+		usi = 1.23e2L;
+		printf("\nunsigned short int usi= %d",usi);//may draw a warning, but they are not illegal.
+
 		enum cardsuit 
 		{
 			Clubs,
