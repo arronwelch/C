@@ -16,7 +16,7 @@ void itoa(int n,char s[]);
 void reverse(char s[]);
 void itob(int n,char s[],short base);
 int reverse_width(char s[],int width);
-void itoa_width(int n,char s[],short base,int width);
+void itoa_width(int n,char s[],short base,const int width);
 
 
 int main(void)
@@ -78,22 +78,26 @@ void reverse(char s[])
 		c=s[i],s[i]=s[j],s[j]=c;
 }
 
-int reverse_width(char s[],int width)
+int reverse_width(char s[],const int width)
 {
 	int i,j,len;
     char str_copy[MAXLINE];
     len = strlen(s)-1;
 
-	for(i=0,j=len;i<j;i++,j--)
-		str_copy[j]=s[i],str_copy[i]=s[j];    
-    str_copy[len+1]='\0';
+	reverse(s);
 
-    for(i=0;i < width-len;i++)
-        s[i] = ' ';
+	for(i=0;i<strlen(s)-1;i++)//copy to str_copy
+		str_copy[i] = s[i];
+
     
-    for(j=0;i< width;i++,j++)
-        s[i] = str_copy[j];
-    
+    for(i=0;i < width;i++)
+	{
+		if(i < width - len)
+			s[i] = ' ';
+		else
+			s[i] = str_copy[i];
+	}
+
     s[i] = '\0';
 
     return 0;

@@ -17,49 +17,70 @@ void reverse(char s[]);
 
 int main(void)
 {
-	int number;
-	char str[MAXLINE];
+    int number;
+    char str[MAXLINE];
 
  /*	number=-2345645; */
-	
-	number = -2147483648;
+    
+    number = -2147483648;
 
-	
-	printf("Integer %d printed as\n String:",number);
+    
+    printf("Integer %d printed as\n String:",number);
 
-	itoa(number,str);
+    itoa(number,str);
 
-	printf("%s",str);
+    printf("%s",str);
 
-	return 0;
+    return 0;
 }
+
+// /* itoa: convert n to characters in s */
+// void itoa(int n, char s[])
+// {
+//     int i, sign;
+//     if ((sign = n) < 0)  /*record sign */
+//         n = -n;          /* make n positive */
+// 		printf("n = %d \n",n);
+//     i = 0;
+//     do {  /* generate digits in reverse order */
+//         s[i++] = n % 10 + '0';  /* get next digit */
+// 		printf("s[%d] = %d \n",i-1,s[i]);
+//     } while (( n /= 10) > 0);   /* delete it */
+
+//     if (sign < 0)
+//         s[i++] = '-';
+// 	printf("s[%d] = %d \n",i-1,s[i-1]);
+//     s[i] = '\0';
+// 	printf("s[%d] = %d \n",i,s[i]);
+//     reverse(s);
+// }
 
 void itoa(int n,char s[])
 {
-	int i,sign;
+    int i,sign;
 
-	sign=n;	
+    sign=n;	
 
-	i = 0;
+    i = 0;
 
-	do
-	{
-		s[i++]= abs(n%10) + '0';
-	
-	}while((n/=10)!=0);
-	
-	if( sign < 0)
-		s[i++]='-';
+    do
+    {
+        s[i++]= abs(n%10) + '0';
+    
+    }while((n/=10)!=0);
+    
+    if( sign < 0)
+        s[i++]='-';
 
-	s[i]='\0';
+    s[i]='\0';
 
-	reverse(s);
+    reverse(s);
 }
 
 void reverse(char s[])
 {
-	int c,i,j;
+    int c,i,j;
 
-	for(i=0,j=strlen(s)-1;i<j;i++,j--)
-		c=s[i],s[i]=s[j],s[j]=c;
+    for(i=0,j=strlen(s)-1;i<j;i++,j--)
+        c=s[i],s[i]=s[j],s[j]=c;
 }
