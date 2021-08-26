@@ -1,69 +1,48 @@
-
-/* Modified version of itoa; to handle the situation of MIN_INT of limits.h
-in the previous number = -2147483648 would fail at n =-n,because the max value of integer is 2147483647
-modifying itoa to handle these situations. 
-sign is stored as  the number itself, absolute value of each digit is stored in the string and 
-while loop is tested not for 0
-itoa: convert an integer to string */
+/* a function of itoa, which accepts the third argument as the width of the number.
+the string representation is padded with blanks in the left to get the  required width */
 
 #include<stdio.h>
 #include<string.h>
-#define MAXLINE 1000
 
-#define abs(x) ( (x) > 0 ? (x): -(x))
+#define MAXLIMIT 100
 
-void itoa(int n,char s[]);
+void itoa(int n,char s[],int w);
 void reverse(char s[]);
-void itob(int n,char s[],short base);
-int reverse_width(char s[],int width);
-void itoa_width(int n,char s[],short base,const int width);
-
 
 int main(void)
 {
-	int number;
-	char str[MAXLINE];
+	int number,width;
+	char str[MAXLIMIT];
 
- /*	number=-2345645; */
+	number= -343565;
+	width=25;
 	
-	number = -2147483648;
+	itoa(number,str,width);
 
-	
-	printf("Integer %d printed as",number);    
-	itoa(number,str);
-	printf("\n DEC String:%s",str);
-
-    itob(number,str,16);
-    printf("\n HEX String:%s",str);
-
-    itob(number,str,8);
-    printf("\n OCT String:%s",str);
-
-    itob(number,str,2);
-    printf("\n BIN String:%s",str);
-
-	itoa_width(number,str,10,16);
-	printf("\n DEC String width:%s",str);
+	printf("%s",str);
 
 	return 0;
 }
 
-void itoa(int n,char s[])
+void itoa(int n,char s[],int w)
 {
 	int i,sign;
 
-	sign=n;	
-
-	i = 0;
+	if((sign=n) < 0)
+		n = -n;
+	i=0;
 
 	do
 	{
-		s[i++]= abs(n%10) + '0';
-	
-	}while((n/=10)!=0);
-	
-	if( sign < 0)
+		s[i++] = (n %10) + '0';
+
+	}while((n/=10)>0);
+
+	if(sign <0)
 		s[i++]='-';
+
+	while(i<w)
+		s[i++]='.';
 
 	s[i]='\0';
 
@@ -72,91 +51,8 @@ void itoa(int n,char s[])
 
 void reverse(char s[])
 {
-	int c,i,j;
+	int i,j,c;
 
 	for(i=0,j=strlen(s)-1;i<j;i++,j--)
 		c=s[i],s[i]=s[j],s[j]=c;
-}
-
-int reverse_width(char s[],const int width)
-{
-	int i,j,len;
-    char str_copy[MAXLINE];
-    len = strlen(s)-1;
-
-	reverse(s);
-
-	for(i=0;i<strlen(s)-1;i++)//copy to str_copy
-		str_copy[i] = s[i];
-
-    
-    for(i=0;i < width;i++)
-	{
-		if(i < width - len)
-			s[i] = ' ';
-		else
-			s[i] = str_copy[i];
-	}
-
-    s[i] = '\0';
-
-    return 0;
-}
-
-void itob(int n,char s[],short base)
-{
-	int i,sign,temp;
-
-	sign=n;	
-	i = 0;
-
-	do
-	{
-        temp = abs(n % base);
-        if(16 == base && temp >= 10 && temp <= 15)
-		    s[i++]= temp + 'A';
-        else
-            s[i++]= temp + '0';
-	}while((n/=base)!=0);
-
-    if(16 == base)
-        s[i++]='x',s[i++]='0';
-    else if(8 == base)
-        s[i++]='0';
-	
-	if( sign < 0)
-		s[i++]='-';
-
-	s[i]='\0';
-
-	reverse(s);
-}
-
-void itoa_width(int n,char s[],short base,int width)
-{
-	int i,sign,temp;
-
-	sign=n;	
-	i = 0;
-
-	do
-	{
-        temp = abs(n % base);
-        if(16 == base && temp >= 10 && temp <= 15)
-		    s[i++]= temp + 'A';
-        else
-            s[i++]= temp + '0';
-	}while((n/=base)!=0);
-
-    if(16 == base)
-        s[i++]='x',s[i++]='0';
-    else if(8 == base)
-        s[i++]='0';
-	
-	if( sign < 0)
-		s[i++]='-';
-
-	s[i]='\0';
-
-	reverse_width(s,width);
 }
