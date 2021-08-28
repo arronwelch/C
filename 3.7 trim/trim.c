@@ -2,16 +2,16 @@
 #include<stdio.h>
 #include<string.h>
 
-#define MAXLIMIT 1000 /* maximum input line length */
+#define MAXLINE 1000 /* maximum input line length */
 
 int getline(char s[], int lim);
 int trim(char s[]);
 
 int main(void)
 {
-	char str[MAXLIMIT];
+	char str[MAXLINE];
 
-    getline(str,MAXLIMIT);
+    getline(str,MAXLINE);
 
 	printf("%s",str);
     putchar('|');
