@@ -60,7 +60,8 @@ double pop(void)
 {
     if (sp > 0)
         return val[--sp];
-    else {
+    else 
+    {
         printf("error: stack empty\n");
         return 0.0;
     }
@@ -171,10 +172,12 @@ int mathfunction(char s[])
         push(exp(pop()));
     else if (!strcmp(s, "sqrt"))
         push(sqrt(pop()));
-    else if (!strcmp(s, "pow")) {
+    else if (!strcmp(s, "pow")) 
+    {
         op2 = pop();
         push(pow(pop(), op2));
-    } else
+    }
+    else
         return 0;
     return 1;
 }
@@ -220,11 +223,15 @@ int main(void)
             push(atof(s));
             break;
         case NAME:
-            if (!strcmp(s, "lp")) {
+            if (!strcmp(s, "lp")) 
+            {
                 push(printed);
-            } else if (!strcmp(s, "mc")) {
+            }
+            else if (!strcmp(s, "mc")) 
+            {
                 clearMemory();
-            } else if (!mathfunction(s))
+            }
+            else if (!mathfunction(s))
                 printf("error: unknown command %s\n", s);
             break;
         case '+':
