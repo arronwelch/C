@@ -1,10 +1,14 @@
 
 #include <stdio.h>
 
+void swap(int *px, int *py);
+
 int main(void)
 {
     int x = 1, y = 2, z[10];
     int *ip;   /* ip is a pointer to int type variable[mnemonic] */
+
+    swap(&x,&y);
 
     ip = &x;   /* ip now points to x */
     printf("ip = %p\n",ip);//ip = 000000000061FE0C (address，64bit)
@@ -35,4 +39,17 @@ int main(void)
 
 
     return 0;
+}
+
+/* swap： interchange *px and *py 
+ * int a = 0, b = 1;
+ * swap(&a,&b);
+ */
+void swap(int *px, int *py)
+{
+    int temp;
+
+    temp = *px;
+    *px = *py;
+    *py = temp;
 }
