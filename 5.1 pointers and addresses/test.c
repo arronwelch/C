@@ -1,5 +1,8 @@
 
 #include <stdio.h>
+#include <ctype.h>
+
+#define SIZE 5
 
 void swap(int *px, int *py);
 
@@ -37,6 +40,13 @@ int main(void)
     iq = ip;
     printf("*(iq+3) = %d\n",*(iq+3));
 
+    int n, array[SIZE], getint(int *);/* declaration */
+
+    for(n = 0; n < SIZE && getint(&array[n]) != EOF; n++) /* fills an array with integers by calls to getint */
+        ;
+
+    for(n = 0; n < SIZE ; n++) /* print the array */
+        printf("array[%d] = %d ",n,array[n]);
 
     return 0;
 }
@@ -52,4 +62,53 @@ void swap(int *px, int *py)
     temp = *px;
     *px = *py;
     *py = temp;
+}
+
+#define BUFSIZE 100
+
+int getch(void);/* declaration */
+void ungetch(int);/* declaration */
+
+char buf[BUFSIZE]; /* buffer for ungetch */
+int bufp = 0;      /* next free position in buf */
+
+int getch(void)    /* get a (possibly pushed-back) character */
+{
+    return (bufp > 0) ? buf[--bufp] : getchar();
+}
+
+void ungetch(int c) /* get a (possibly pushed-back) character */
+{
+    if(bufp >= BUFSIZE)
+        printf("ungetch: too many characters\n");
+    else
+        buf[bufp++] = c;
+}
+
+/* getint: get next integer from input into *pn */
+int getint(int *pn)
+{
+	int c, sign;
+
+	while (isspace(c = getch()))   /* skip white space */
+		;
+
+	if (!isdigit(c) && c != '+' && c != '-') 
+    {
+		ungetch(c);  /* it is not a number */
+		return 0;
+	}
+
+	sign = (c == '-') ? -1 : 1;
+
+	if (c == '+' || c == '-')
+		if (!isdigit((c = getch()))) /* sign followed by a digit? */
+			return 0; /* not a number */
+
+	for (*pn = 0; isdigit(c); c = getch())
+		*pn = 10 * *pn + (c - '0');
+	*pn *= sign;
+
+	ungetch(c);
+	return c;
 }
