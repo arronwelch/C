@@ -7,6 +7,16 @@
  * evaluates 2 * (3 + 4).
  */
 
+// How to pass arguments to C from debug?
+// https://www.reddit.com/r/vscode/comments/j0n2wi/how_to_pass_arguments_to_c_from_debug/
+
+// How do I pass in the asterisk character '*' in bash as arguments to my C program?
+// https://stackoverflow.com/questions/2755795/how-do-i-pass-in-the-asterisk-character-in-bash-as-arguments-to-my-c-program
+// in git bash
+// cc mexpr.c
+// ./a.exe 2 3 4 + $*
+// $ 14
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -41,7 +51,7 @@ int main(int argc, char *argv[])
             case NUMBER:
                 push(num);
                 break;
-            case '*':/* argument '*' can't in windows10 powershell */
+            case '*':/* why argument '*' become the pointer to the first file name string such as "mexpr.c" in this */
                 push(pop() * pop());
                 break;
             case '+':
