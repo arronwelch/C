@@ -12,6 +12,10 @@
 
 // How do I pass in the asterisk character '*' in bash as arguments to my C program?
 // https://stackoverflow.com/questions/2755795/how-do-i-pass-in-the-asterisk-character-in-bash-as-arguments-to-my-c-program
+
+
+// Pass a string containing the * (asterisk) character as a command line argument in Windows Shell
+// https://stackoverflow.com/questions/2374566/pass-a-string-containing-the-asterisk-character-as-a-command-line-argument-i
 // in git bash
 // cc mexpr.c
 // ./a.exe 2 3 4 + $*
