@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
             case NUMBER:
                 push(num);
                 break;
-            case '*':/* why argument '*' become the pointer to the first file name string such as "mexpr.c" in this */
+            case 'x':/* why argument '*' become the pointer to the first file name string such as "mexpr.c" in this */
                 push(pop() * pop());
                 break;
             case '+':
