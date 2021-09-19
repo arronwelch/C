@@ -1,4 +1,4 @@
-/** Exercise 5-11:(page 118 K&R)
+/** Exercise 5-11:(page 118 K&R) is detab.c
  * Modify the programs entab and detab (written as exercises in Chapter 1)
  * to accept a list of tab stops as argumets. Use the default tab settings if there are no arguments.
 */
@@ -7,59 +7,48 @@
 #include <stdlib.h>
 
 #define MAXLINE 5 /* maximum line size */
-#define TABINC 8    /* default tab increment size */
+#define TABINC 8  /* default tab increment size */
 #define YES 1
 #define NO  0
 
 void settab(int argc, char *argv[], char *tab);
-void entab(char *tab);
+void detab(char *tab);
 int tabpos(int pos, char *tab);
 
-/* replace strings of blanks with tabs */
+/* replace tabs with blanks */
 int main(int argc, char *argv[])
 {
     char tab[MAXLINE+1];
 
     settab(argc,argv,tab); /* initialize tab stops */
-    entab(tab);
+    detab(tab);            /* replace tab with blanks */
     return 0;
 }
 
-/* entab: replace strings of blanks with tabs and blanks */
-void entab(char *tab)
+/* detab: replace tab with blanks */
+void detab(char *tab)
 {
-    int c, pos;
-    int nb = 0; /* 0 of blanks necessary */
-    int nt = 0; /* 0 of tabs necessary */
+    int c, pos = 1;
 
-    for (pos = 1; (c = getchar()) != EOF; pos++)
-        if (c == ' ')
+    while ( (c = getchar()) != EOF )
+    {
+        if (c == '\t') /* tab character */
         {
-            if (tabpos(pos, tab) == NO)
-                ++nb;  /* increment 0 of blanks */
-            else
-            {
-                nb = 0;/* reset 0 of blanks     */
-                ++ nt; /* one more tab          */
-            }
+            do
+                putchar(' ');
+            while(tabpos(pos++, tab) != YES);
+        }
+        else if ( c == '\n') /* newline character */
+        {
+            putchar(c);
+            pos = 1;
         }
         else
         {
-            for ( ; nt > 0; nt--)
-                putchar('\t'); /* output tab(s)       */
-
-            if (c == '\t')     /* forget the blank(s) */
-                nb = 0;
-            else               /* output blank(s)     */  
-                for ( ; nb > 0; nb--)
-                    putchar(' ');
             putchar(c);
-            if (c == '\n')
-                pos = 0;
-            else if (c == '\t')
-                while ( tabpos(pos, tab) != YES)
-                    ++pos;
+            ++pos;
         }
+    }
 }
 
 //The source file setlib.h
