@@ -15,9 +15,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define DEFLINES 10   /* default of lines to print   */
-#define LINES    100  /* max of lines to print       */
-#define MAXLEN   100  /* max length of an input line */
+#define DEFLINES 10 /* default of lines to print   */
+#define LINES 100   /* max of lines to print       */
+#define MAXLEN 100  /* max length of an input line */
 
 void error(char *);
 int getline(char *, int);
@@ -26,58 +26,58 @@ int getline(char *, int);
 int main(int argc, char *argv[])
 {
     char *p;
-    char *buf;/* pointer to large buffer */
-    char *bufend;/* end of the buffer */
-    char line[MAXLEN];/* current input line */
-    char *lineptr[LINES];/* pointers to lines read */
+    char *buf;            /* pointer to large buffer    */
+    char *bufend;         /* end of the buffer          */
+    char line[MAXLEN];    /* current input line         */
+    char *lineptr[LINES]; /* pointers to lines read     */
     int first, i, last, len, n, nlines;
 
-    if ( argc == 1 )/* no argument present */
-        n = DEFLINES;/* use default of lines */
+    if (argc == 1)    /* no argument present        */
+        n = DEFLINES; /* use default of lines       */
     else if (argc == 2 && (*++argv)[0] == '-')
-        n = atoi(argv[0]+1);
+        n = atoi(argv[0] + 1);
     else
         error("usage: tail [-n]");
-    
-    if ( n<1 || n>LINES) /* unreasonable value for n? */
+
+    if (n < 1 || n > LINES) /* unreasonable value for n?  */
         n = LINES;
 
-    for (i=0;i<LINES;i++)
+    for (i = 0; i < LINES; i++)
         lineptr[i] = NULL;
 
     if ((p = buf = malloc(LINES * MAXLEN)) == NULL)
         error("tail: cannot allocate buf");
     bufend = buf + LINES * MAXLEN;
-    last = 0;    /* index of last line read */
-    nlines = 0;  /* number of lines read    */
+    last = 0;   /* index of last line read */
+    nlines = 0; /* number of lines read    */
 
-    while ( (len = getline(line,MAXLEN)) > 0 )
+    while ((len = getline(line, MAXLEN)) > 0)
     {
-        if( p + len + 1 >= bufend )
-            p = buf;/* buffer wrap around */
+        if (p + len + 1 >= bufend)
+            p = buf; /* buffer wrap around */
         lineptr[last] = p;
-        strcpy(lineptr[last],line);
+        strcpy(lineptr[last], line);
         if (++last >= LINES)
-            last = 0;/* ptrs to buffer wrap around */
+            last = 0; /* ptrs to buffer wrap around */
         p += len + 1;
         nlines++;
     }
 
-    if ( n > nlines )/* req. lines more than reactive ? */
+    if (n > nlines) /* req. lines more than reactive ? */
         n = nlines;
     first = last - n;
-    if ( first < 0 ) /* it did wrap around the list */
+    if (first < 0) /* it did wrap around the list */
         first += LINES;
 
-    for( i = first ; n-- > 0 ; i = ( i + 1) % LINES )
-        printf("%s",lineptr[i]);
+    for (i = first; n-- > 0; i = (i + 1) % LINES)
+        printf("%s", lineptr[i]);
     return 0;
 }
 
 /* error: print error message and exit */
 void error(char *s)
 {
-    printf("%s\n",s);
+    printf("%s\n", s);
     exit(1);
 }
 
@@ -87,16 +87,16 @@ int getline(char s[], int lim)
     int c, i, j;
 
     j = 0;
-    for ( i = 0; (c = getchar()) != EOF && c != '\n'; ++i)
+    for (i = 0; (c = getchar()) != EOF && c != '\n'; ++i)
     {
-        if ( i < lim - 2 )
+        if (i < lim - 2)
         {
             s[j] = c;
             j++;
         }
     }
 
-    if ( c == '\n' )
+    if (c == '\n')
     {
         s[j] = c;
         ++j;
@@ -104,7 +104,7 @@ int getline(char s[], int lim)
     }
 
     s[j] = '\0';
-    if (i == 1)/* only one newline  */
+    if (i == 1) /* only one newline  */
         return 0;
     else
         return i;
