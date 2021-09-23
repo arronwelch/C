@@ -1,68 +1,71 @@
+/**
+ * Exercise 5-14:(page 121 K&R)
+ * Modify the sort program to handle a -r flag, wihich indicates sorting in reverse(decreasing) order. Be sure that -r works with -n.
+ * 
+*/
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-#define MAXLINES 100 /* max #lines to be sorted */
-#define MAXLEN 100 /* max length of any input lines */
-#define NUMERIC 1
-#define DECR 2
+#define NUMERIC 1    /* 0x0000 0001 numeric sort */
+#define DECR 2       /* 0x0000 0010 sort in decreasing order */
+#define MAXLINES 100 /* max of lines to be sorted */
+#define MAXLEN 1000 /* max length of any input lines */
+char *lineptr[MAXLINES]; /* pointers to text lines */
 
-char *lineptr[MAXLINES];
-
-int readlines(char *lineptr[], int nlines);
-void writelines(char *lineptr[], int nlines, int decr);
-void mqsort(void *v[], int left, int right, int (*comp)(void *, void *));
 int numcmp(char *, char *);
+int readlines(char *lineptr[], int maxlines);
+void mqsort(void *v[], int left, int right, int (*comp)(void *, void *));
+void writelines(char *lineptr[], int nlines, int decr);
 int getline(char *,int);
 char *alloc(int);
-
 static char option = 0;
 
 /* sort input lines */
 int main(int argc, char *argv[])
 {
-    char *lineptr[MAXLINES];
-    int nlines;      /* number of input lines read */
+
+    int nlines;              /* number of input lines read */
     int c, rc = 0;
 
-    while ( --argc > 0 && (*++argv)[0] == '-' )
+    while (--argc > 0 && ((*++argv)[0] == '-'))
     {
         while (c = *++argv[0])
         {
             switch (c)
             {
-                case 'n':
-                    option |= NUMERIC;
-                    break;
-                case 'r':
-                    option |= DECR;
-                    break;
-                default:
-                    printf("sort: illegal option %c\n",c);
-                    argc = 1;
-                    rc = -1;
-                    break;
+            case 'n': /* numeric sort */
+                option |= NUMERIC;
+                break;
+            case 'r': /* sort in decreasing order */
+                option |= DECR;
+                break;
+            default:
+                printf("sort: illegal option %c\n",c);
+                argc = 1;
+                rc = -1;
+                break;
             }
         }
     }
 
     if (argc)
-        printf("Usage: sort -nr \n");
+        printf("Usahe: sort -nr \n");
     else
-    if ((nlines = readlines(lineptr,MAXLINES)) >= 0)
-    {
-        if (option&NUMERIC)
-            mqsort( (void **) lineptr, 0, nlines-1,(int (*) (void *,void *)) numcmp );
+        if ( (nlines = readlines(lineptr,MAXLINES)) > 0)
+        {
+            if(option & NUMERIC)
+                mqsort( (void **) lineptr, 0, nlines-1,(int (*) (void *,void *)) numcmp );
+            else
+                ;//mqsort( (void **) lineptr, 0, nlines-1,(int (*) (void *,void *)) strcmp );
+            writelines(lineptr,nlines,option&DECR);
+        } 
         else
-            mqsort( (void **) lineptr, 0, nlines-1,(int (*) (void *,void *)) strcmp );
-        writelines(lineptr,nlines,option&DECR);
-    }
-    else
-    {
-        printf("intput too big to sort\n");
-        rc = -1;
-    }
+        {
+            printf("input too big to sort \n");
+            rc = -1;
+        }
     return rc;
 }
 
@@ -71,11 +74,11 @@ void writelines(char *lineptr[], int nlines, int decr)
 {
     int i;
 
-    if(decr)
-        for (i = nlines-1;i >= 0; i--)
+    if (decr)  /* print in decreasing order */
+        for (i = nlines -1; i >= 0; i--)
             printf("%s\n",lineptr[i]);
     else
-        for (i = 0;i < nlines; i++)
+        for (i = 0; i < nlines; i++)
             printf("%s\n",lineptr[i]);
 }
 
@@ -97,7 +100,6 @@ void mqsort(void *v[], int left, int right, int (*comp) (void *, void *))
     mqsort(v,left,last-1,comp);
     mqsort(v,last+1,right,comp);
 }
-
 /* numcmp: compare s1 and s2 numerically */
 int numcmp(char *s1, char *s2)
 {
