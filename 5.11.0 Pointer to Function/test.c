@@ -11,7 +11,7 @@ int readlines(char *lineptr[], int nlines);
 void writelines(char *lineptr[], int nlines);
 void mqsort(void *v[], int left, int right, int (*comp)(void *, void *));
 int numcmp(char *, char *);
-int getline(char *,int);
+int mgetline(char *,int);
 char *alloc(int);
 
 /* sort input lines */
@@ -82,8 +82,8 @@ void swap(void *v[],int i, int j)
     v[j] = temp;
 }
 
-/* getline: version in pointers read a line into str, return length */
-int getline(char *str,int lim)
+/* mgetline: version in pointers read a line into str, return length */
+int mgetline(char *str,int lim)
 {
     int c, i;
 
@@ -105,7 +105,7 @@ int readlines(char *lineptr[], int maxlines)
     char *p, line[MAXLEN];
 
     nlines = 0;
-    while( (len = getline(line,MAXLEN)) > 1 )
+    while( (len = mgetline(line,MAXLEN)) > 1 )
     {
         if (nlines >= maxlines || (p = alloc(len)) == NULL)
             return -1;

@@ -11,13 +11,14 @@
 */
 
 #include <stdio.h>
-#include <math.h> /* for atof() */
+#include <math.h>
+#include <stdlib.h> /* for atof() */
 
-#define MAXOP 100 /* max size of operand or operator */
+#define MAXOP 100  /* max size of operand or operator */
 #define NUMBER '0' /* signal that a number was found */
 
-int getop(char []);
-void ungets(char []);
+int getop(char[]);
+void ungets(char[]);
 void push(double);
 double pop(void);
 
@@ -29,44 +30,43 @@ int main(int argc, char *argv[])
 
     while (--argc > 0)
     {
-        ungets(" ");/* push end of argument */
-        ungets(*++argv);/* push an argument */
+        ungets(" ");     /* push end of argument */
+        ungets(*++argv); /* push an argument */
 
         switch (getop(s))
         {
-            case NUMBER:
-                push(atof(s));
-                break;
-            case '+':
-                push(pop() + pop());
-                break;
-            case '-':
-                op2 = pop();
-                push(pop() - op2);
-                break;
-            case '*':
-                push(pop() * pop());
-                break;
-            case '/':
-                op2 = pop();
-                if (op2 != 0.0)
-                    push(pop() / op2);
-                else
-                    printf("error: zero divisor\n");
-                break;
-            default:
-                printf("error: unknown command %s\n",s);
-                argc = 1;/* for end loop */
-                break;
+        case NUMBER:
+            push(atof(s));
+            break;
+        case '+':
+            push(pop() + pop());
+            break;
+        case '-':
+            op2 = pop();
+            push(pop() - op2);
+            break;
+        case '*':
+            push(pop() * pop());
+            break;
+        case '/':
+            op2 = pop();
+            if (op2 != 0.0)
+                push(pop() / op2);
+            else
+                printf("error: zero divisor\n");
+            break;
+        default:
+            printf("error: unknown command %s\n", s);
+            argc = 1; /* for end loop */
+            break;
         }
     }
-    printf("\t%.8g\n",pop());
+    printf("\t%.8g\n", pop());
     return 0;
 }
 
-
-#define MAXVAL 100 /* maximum depth of val stack */
-int sp = 0; /* next free stack position */
+#define MAXVAL 100  /* maximum depth of val stack */
+int sp = 0;         /* next free stack position */
 double val[MAXVAL]; /* value stack */
 
 /* push: push f onto value stack */
@@ -83,7 +83,7 @@ double pop(void)
 {
     if (sp > 0)
         return val[--sp];
-    else 
+    else
     {
         printf("error: stack empty\n");
         return 0.0;
@@ -92,7 +92,7 @@ double pop(void)
 
 #define BUFSIZE 100
 char buf[BUFSIZE]; /* buffer for ungetch */
-int bufp = 0; /* next free position in buf */
+int bufp = 0;      /* next free position in buf */
 
 int getch(void) /* get a (possibly pushed-back) character */
 {
