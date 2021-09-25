@@ -1,14 +1,12 @@
 {
-	"settings": {
-		"files.associations": {
-			"stdio.h": "c",
-			"string.h": "c",
-			"stdlib.h": "c"
-		}
-	},
 	"folders": [
 		{
 			"path": "."
 		}
-	]
+	],
+	"settings": {
+		"files.associations": {
+			"stdlib.h": "c"
+		}
+	}
 }
