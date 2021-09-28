@@ -7,7 +7,7 @@
 	"settings": {
 		"files.associations": {
 			"stdlib.h": "c",
-			"math.h": "c"
+			"stdio.h": "c"
 		}
 	}
 }
