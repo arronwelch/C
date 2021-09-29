@@ -7,7 +7,15 @@
 	"settings": {
 		"files.associations": {
 			"stdlib.h": "c",
-			"stdio.h": "c"
+			"stdio.h": "c",
+			"ctype.h": "c",
+			"math.h": "c",
+			"error.h": "c",
+			"sort.h": "c",
+			"lines.h": "c",
+			"arg.h": "c",
+			"cmp.h": "c",
+			"substr.h": "c"
 		}
 	}
 }

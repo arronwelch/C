@@ -3,39 +3,40 @@
  * Add a field-handing capability, so sorting may be done in fields within lines.
  * each field sorted according to an independent set of options.
  * (The index for this book was -df for the index category and -n for the page numbers.)
+ * 
+ * gcc -o main.exe alloc.c arg.c cmp.c error.c lines.c main.c sort.c substr.c
+ * Usage: ./main -dfnr [+pos1] [-pos2]
+ * 
 */
 
 #include <stdio.h>
-#include <ctype.h>
-#include <string.h>
 #include <stdlib.h>
-#include <math.h>
+#include <string.h>
+#include <ctype.h>
 
 #define NUMERIC 1    /* numeric sort */
 #define DECR 2       /* sort in decreasing order */
 #define FOLD 4       /* fold upper and lower cases */
 #define DIR 8        /* directory order */
+
 #define MAXLINES 100 /* max of lines to be sorted */
 #define MAXLEN 100   /* max length of any input lines */
 #define MAXSTR 100
 
-int charcmp(char *, char *);
-void error(char *);
-int numcmp(char *, char *);
 void readargs(int argc, char *argv[]);
+int mgetline(char *str, int lim);
 int readlines(char *lineptr[], int maxlines);
-void mqsort(void *lineptr[], int left, int right, int (*comp)(void *, void *));
 void writelines(char *lineptr[], int nlines, int decr);
 void substr(char *s, char *t, int maxstr);
-int mgetline(char *, int);
-char *alloc(int);
+int numcmp(char *s1, char *s2);
+int charcmp(char *s, char *t);
+void error(char *s);
+void mqsort(void *lineptr[], int left, int right, int (*comp)(void *, void *));
 
-/* global */
-static char option = 0;
+char option = 0;
 int pos1 = 0; /* field beginning with pos1 */
 int pos2 = 0; /* ending just before pos2 */
 
-/* sort input lines */
 int main(int argc, char *argv[])
 {
     char *lineptr[MAXLINES]; /* pointer to text lines */
@@ -63,24 +64,69 @@ int main(int argc, char *argv[])
     return rc;
 }
 
-/* writelines: write output lines */
-void writelines(char *lineptr[], int nlines, int decr)
+/* numcmp: compare s1 and s2 numerically */
+int numcmp(char *s1, char *s2)
 {
-    int i;
+    double v1, v2;
+    char str[MAXSTR];
 
-    if (decr)
-        for (i = nlines - 1; i >= 0; i--)
-            printf("%s\n", lineptr[i]);
+    substr(s1, str, MAXSTR);
+    v1 = atof(str);
+    substr(s2, str, MAXSTR);
+    v2 = atof(str);
+    if (v1 < v2)
+        return -1;
+    else if (v1 > v2)
+        return 1;
     else
-        for (i = 0; i < nlines; i++)
-            printf("%s\n", lineptr[i]);
+        return 0;
+}
+
+/* charcmp: return <0 if s<t, 0 if s==t, >0 if s>t */
+int charcmp(char *s, char *t)
+{
+    char a, b;
+    int i, j, endpos;
+
+    int fold = (option & FOLD) ? 1 : 0;
+    int dir = (option & DIR) ? 1 : 0;
+
+    i = j = pos1;
+    if (pos2 > 0)
+    {
+        endpos = pos2;
+    }
+    else if ((endpos = strlen(s)) > strlen(t))
+    {
+        endpos = strlen(t);
+    }
+    do
+    {
+        if (dir)
+        {
+            while (i < endpos && !isalnum(s[i]) && s[i] != ' ' && s[i] != '\0')
+                i++;
+            while (j < endpos && !isalnum(t[j]) && t[j] != ' ' && t[j] != '\0')
+                j++;
+        }
+        if (i < endpos && j < endpos)
+        {
+            a = fold ? tolower(s[i]) : s[i];
+            i++;
+            b = fold ? tolower(t[j]) : t[j];
+            j++;
+            if (a == b && a == '\0')
+                return 0;
+        }
+    } while (a == b && i < endpos && j < endpos);
+    return a - b;
 }
 
 void mqsort(void *v[], int left, int right, int (*comp)(void *, void *))
 {
-    int i, last;
+    int i, last;    
 
-    void swap(void *v[], int, int);
+    void swap(void *v[], int i, int j);/* declare swap function */
 
     if (left >= right) /* do nothing if array contains */
         return;        /* fewer than two elements */
@@ -109,13 +155,12 @@ void swap(void *v[], int i, int j)
 void readargs(int argc, char *argv[])
 {
     int c;
-    //int atoi(char *);
 
-    while (--argc > 0 && (c = (*++argv)[0]) == '-' || c == '+')
+    while (--argc > 0 && (c = (*++argv)[0]) == '-' || c == '+')/* get second lines's first character */
     {
-        if (c == '-' && !isdigit(*(argv[0] + 1)))
+        if (c == '-' && !isdigit(*(argv[0] + 1)))/* not is digit */
         {
-            while (c = *++argv[0])
+            while (c = *++argv[0])/* get second lines's second character and go on until '\0',first character is '-' */
             {
                 switch (c)
                 {
@@ -125,7 +170,7 @@ void readargs(int argc, char *argv[])
                 case 'f': /* fold upper and lower */
                     option |= FOLD;
                     break;
-                case 'n': /* numeric sort */
+                case 'n': /* numeric sort(directory and fold is not work at same time) */
                     option |= NUMERIC;
                     break;
                 case 'r': /* sort in decreasing order */
@@ -138,70 +183,37 @@ void readargs(int argc, char *argv[])
                 }
             }
         }
-        else if (c == '-') /* isdigit */
-            pos2 = atoi(argv[0] + 1);
-        else if ((pos1 = atoi(argv[0] + 1)) < 0) /* c == '+' */
+        else if (c == '-' ) /* isdigit */
+            pos2 = atoi(argv[0] + 1);/* get pos2(end position) */
+        else if ((pos1 = atoi(argv[0] + 1)) < 0 ) /* not is digit returns zero,first character is '+' */
             error("Usage: sort -dfnr [+pos1] [-pos2]");
     }
     if (argc || pos1 > pos2)
         error("Usage: sort -dfnr [+pos1] [-pos2]");
 }
 
-/* numcmp: compare s1 and s2 numerically */
-int numcmp(char *s1, char *s2)
-{
-    double v1, v2;
-    char str[MAXSTR];
 
-    substr(s1, str, MAXSTR);
-    v1 = atof(str);
-    substr(s2, str, MAXSTR);
-    v2 = atof(str);
-    if (v1 < v2)
-        return -1;
-    else if (v1 > v2)
-        return 1;
+#define ALLOCSIZE 10000 /* size of available space */
+
+static char allocbuf[ALLOCSIZE]; /* storage for alloc */
+static char *allocp = allocbuf;  /* next free position */
+
+char *alloc(int n) /* return pointer to n characters */
+{
+    if (allocbuf + ALLOCSIZE - allocp >= n) /* it fits */
+    {
+        allocp += n;
+        return allocp - n; /* return old position */
+    }
     else
-        return 0;
+        return 0; /* not enough room */
 }
 
-/* charcmp: return <0 if s<t, 0 if s==t, >0 if s>t */
-int charcmp(char *s, char *t)
+/* error: print error message and exit */
+void error(char *s)
 {
-    char a, b;
-    int i, j, endpos;
-    //extern char option;
-    //extern int pos1, pos2;
-    int fold = (option & FOLD) ? 1 : 0;
-    int dir = (option & DIR) ? 1 : 0;
-
-    i = j = pos1;
-    if (pos2 > 0)
-        endpos = pos2;
-    else if ((endpos = strlen(s)) >= strlen(t))
-        endpos = strlen(t);
-    else
-        endpos = strlen(s);
-    do
-    {
-        if (dir)
-        {
-            while (i < endpos && !isalnum(s[i]) && s[i] != ' ' && s[i] != '\0')
-                i++;
-            while (j < endpos && !isalnum(t[j]) && t[j] != ' ' && t[j] != '\0')
-                j++;
-        }
-        if (i < endpos && j < endpos)
-        {
-            a = fold ? tolower(s[i]) : s[i];
-            i++;
-            b = fold ? tolower(t[j]) : t[j];
-            j++;
-            if (a == b && a == '\0')
-                return 0;
-        }
-    } while (a == b && i < endpos && j < endpos);
-    return a - b;
+    printf("%s\n", s);
+    exit(1);
 }
 
 /* mgetline: version in pointers read a line into str, return length */
@@ -227,10 +239,10 @@ int readlines(char *lineptr[], int maxlines)
     char *p, line[MAXLEN];
 
     nlines = 0;
-    while ((len = mgetline(line, MAXLEN)) > 1)
+    while ((len = mgetline(line, MAXLEN)) > 1)/* newline's lines end */
     {
         if (nlines >= maxlines || (p = alloc(len)) == NULL)
-            return -1;
+            return -1;/* too many input */
         else
         {
             line[len - 1] = '\0'; /* delete newline */
@@ -241,28 +253,24 @@ int readlines(char *lineptr[], int maxlines)
     return nlines;
 }
 
-#define ALLOCSIZE 10000 /* size of available space */
-
-static char allocbuf[ALLOCSIZE]; /* storage for alloc */
-static char *allocp = allocbuf;  /* next free position */
-
-char *alloc(int n) /* return pointer to n characters */
+/* writelines: write output lines */
+void writelines(char *lineptr[], int nlines, int decr)
 {
-    if (allocbuf + ALLOCSIZE - allocp >= n) /* it fits */
-    {
-        allocp += n;
-        return allocp - n; /* return old position */
-    }
+    int i;
+
+    if (decr)
+        for (i = nlines - 1; i >= 0; i--)
+            printf("%s\n", lineptr[i]);
     else
-        return 0; /* not enough room */
+        for (i = 0; i < nlines; i++)
+            printf("%s\n", lineptr[i]);
 }
 
 /* substr: get a substring of s and put in str */
 void substr(char *s, char *str, int maxstr)
 {
     int i, j, len;
-    //extern int pos1, pos2;
-
+    
     len = strlen(s);
     if (pos2 > 0 && len > pos2)
         len = pos2;
@@ -271,13 +279,6 @@ void substr(char *s, char *str, int maxstr)
     if (len > maxstr)
         len = maxstr;
     for (j = 0, i = pos1; i < len; i++, j++)
-        str[j] = str[i];
+        str[j] = s[i];
     str[j] = '\0';
-}
-
-/* error: print error message and exit */
-void error(char *s)
-{
-    printf("%s\n", s);
-    exit(1);
 }
