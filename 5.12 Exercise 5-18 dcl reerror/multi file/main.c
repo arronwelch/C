@@ -3,6 +3,12 @@
  * [INPUT  ->]./main.exe
  * [INPUT  ->]char (*(*x[3])())[5]
  * [OUTPUT ->]x: array[3] of pointer to function returning pointer to array[5] of char
+ * 
+ * ***********************************
+ * char *(*argv
+ * error: missing )
+ * argv:  pointer to pointer to char
+ * ***********************************
  */
 
 #include <stdio.h>
