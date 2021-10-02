@@ -1,3 +1,10 @@
+/*
+ * [INPUT  ->]gcc -o main.exe main.c dcl.c gettoken.c
+ * [INPUT  ->]./main.exe
+ * [INPUT  ->]char (*(*x[3])())[5]
+ * [OUTPUT ->]x: array[3] of pointer to function returning pointer to array[5] of char
+ */
+
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
