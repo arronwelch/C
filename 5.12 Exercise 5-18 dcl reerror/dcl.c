@@ -33,3 +33,37 @@ void dcl(void)
     while (ns-- > 0)
         strcat(out, " pointer to");
 }
+
+/* dirdcl: parse a direct declaration */
+void dirdcl(void)
+{
+    int type;
+
+    if(tokentype == '(') /* (dcl) */
+    {
+        dcl();
+        if ( tokentype != ')')
+            errmsg("error: missing )\n");
+    }
+    else if (tokentype == NAME) /* variable name */
+        strcpy(name, token);
+    else
+        errmsg("error: expected name or (dcl)\n");
+
+    while ((type = gettoken()) == PARENS || type == BRACKETS)
+        if (type == PARENS)
+            strcat(out, " function returning");
+        else
+        {
+            strcat(out, " array");
+            strcat(out, token);
+            strcat(out, " of");
+        }
+}
+
+/* errmsg: print error message and indicate avail. token */
+void errmsg(char *msg)
+{
+    printf("%s",msg);
+    prevtoken = YES;
+}
