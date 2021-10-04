@@ -43,14 +43,23 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define BUFSIZE   100
-#define MAXLEN    1000
-#define MAXTOKEN  100
+#define BUFSIZE 100
+#define MAXLEN 1000
+#define MAXTOKEN 100
 
-#define SIZE(a)   sizeof((a)) / sizeof((a)[0])
+#define SIZE(a) sizeof((a)) / sizeof((a)[0])
 
-enum { NAME, PARENS, BRACKETS };
-enum { GOOD, FAIL };
+enum
+{
+	NAME,
+	PARENS,
+	BRACKETS
+};
+enum
+{
+	GOOD,
+	FAIL
+};
 
 /* functions */
 void dcl(void);
@@ -63,15 +72,15 @@ int typeqaul(void);
 void paramdcl(void);
 
 /* globals */
-int buf[BUFSIZE];         /* buffer from ungetch */
-int bufp = 0;             /* next free position in buf */
-int tokentype;            /* type of last token */
-char token[MAXTOKEN];     /* last token string */
-char name[MAXTOKEN];      /* identifier name */
-char datatype[MAXTOKEN];  /* data type = char, int, etc. */
-char out[MAXLEN];         /* composed output string */
-char state;               /* flag to propagate the current state of parsing */
-int paramtype;            /* signal that type is a parameter type */
+int buf[BUFSIZE];		 /* buffer from ungetch */
+int bufp = 0;			 /* next free position in buf */
+int tokentype;			 /* type of last token */
+char token[MAXTOKEN];	 /* last token string */
+char name[MAXTOKEN];	 /* identifier name */
+char datatype[MAXTOKEN]; /* data type = char, int, etc. */
+char out[MAXLEN];		 /* composed output string */
+char state;				 /* flag to propagate the current state of parsing */
+int paramtype;			 /* signal that type is a parameter type */
 
 /* dcl: parse a declarator */
 void dcl(void)
@@ -89,15 +98,20 @@ void dcl(void)
 void dirdcl(void)
 {
 	int type;
-	
-	if (tokentype == '(') {         /* ( dcl ) */
+
+	if (tokentype == '(')
+	{ /* ( dcl ) */
 		dcl();
 		if (tokentype != ')')
 			errmsg("error: missing )\n");
-	} else if (tokentype == NAME) { /* variable name */
-		if (!name[0])               /* skip if name exists */
+	}
+	else if (tokentype == NAME)
+	{				  /* variable name */
+		if (!name[0]) /* skip if name exists */
 			strcpy(name, token);
-	} else {
+	}
+	else
+	{
 		if (paramtype)
 			state = FAIL; /* push back tokentype without printing error msg */
 		else
@@ -106,11 +120,14 @@ void dirdcl(void)
 	while ((type = gettoken()) == PARENS || type == BRACKETS || type == '(')
 		if (type == PARENS)
 			strcat(out, " function returning");
-		else if (type == '(') {
-			strcat(out, " function expecting");;
+		else if (type == '(')
+		{
+			strcat(out, " function expecting");
 			paramdcl();
 			strcat(out, " and returning");
-		} else {
+		}
+		else
+		{
 			strcat(out, " array");
 			strcat(out, token);
 			strcat(out, " of");
@@ -119,10 +136,11 @@ void dirdcl(void)
 
 /* paramdcl: parse parameter-declaration */
 void paramdcl(void)
-{  
+{
 	char temp[MAXTOKEN];
 
-	do {
+	do
+	{
 		temp[0] = '\0'; /* clear previous parameter type */
 		gettoken();
 		dclspc(temp);
@@ -143,7 +161,8 @@ void dclspc(char *type)
 {
 	int count;
 
-	for (count = 0; tokentype == NAME && (typespc() || typeqaul()); ++count) {
+	for (count = 0; tokentype == NAME && (typespc() || typeqaul()); ++count)
+	{
 		if (count) /* qualifier added? */
 			strcat(type, " ");
 		strcat(type, token); /* is the datatype */
@@ -156,7 +175,7 @@ void dclspc(char *type)
 int typespc(void)
 {
 	int isequal(const void *, const void *), combination_chk();
-	static const char *typetab[] = { "char", "double", "float", "int", "void" };
+	static const char *typetab[] = {"char", "double", "float", "int", "void"};
 
 	if (!bsearch(&token, typetab, SIZE(typetab), sizeof(char *), isequal))
 		return 0; /* not a specifier */
@@ -167,7 +186,7 @@ int typespc(void)
 int typeqaul(void)
 {
 	int isequal(const void *, const void *), combination_chk();
-	static const char *qualtab[] = { "const", "volatile" };
+	static const char *qualtab[] = {"const", "volatile"};
 
 	if (!bsearch(&token, qualtab, SIZE(qualtab), sizeof(char *), isequal))
 		return 0;
@@ -178,7 +197,7 @@ int typeqaul(void)
  * otherwise return a non-zero value */
 int isequal(const void *s, const void *t)
 {
-	return strcmp((char *) s, *(char **) t);
+	return strcmp((char *)s, *(char **)t);
 }
 
 /* errmsg: print error message, set state flag to FAIL */
@@ -195,28 +214,33 @@ int gettoken(void)
 	void ungetch(int);
 	char *p = token;
 
-	if (state == FAIL) {
+	if (state == FAIL)
+	{
 		state = GOOD;
 		return tokentype; /* push back the previous token */
 	}
 	while ((c = getch()) == ' ' || c == '\t')
 		;
-	if (c == '(') {
-		if ((c = getch()) == ')') {
+	if (c == '(')
+	{
+		if ((c = getch()) == ')')
+		{
 			strcpy(token, "()");
 			return tokentype = PARENS;
 		}
 		ungetch(c);
 		return tokentype = '(';
-	} 
-	if (c == '[') {
-		for (*p++ = c; (*p++ = getch()) != ']'; )
+	}
+	if (c == '[')
+	{
+		for (*p++ = c; (*p++ = getch()) != ']';)
 			;
 		*p = '\0';
 		return tokentype = BRACKETS;
 	}
-	if (isalpha(c)) {
-		for (*p++ = c; isalnum(c = getch()); )
+	if (isalpha(c))
+	{
+		for (*p++ = c; isalnum(c = getch());)
 			*p++ = c;
 		*p = '\0';
 		ungetch(c);
@@ -242,13 +266,14 @@ void ungetch(int c)
 
 int main(void)
 {
-	while (gettoken() != EOF) {  /* first token on line */
-		if (tokentype == '\n')   /* skip empty lines */
+	while (gettoken() != EOF)
+	{						   /* first token on line */
+		if (tokentype == '\n') /* skip empty lines */
 			continue;
 		datatype[0] = '\0';
-		dclspc(datatype);        /* parse data type */
+		dclspc(datatype); /* parse data type */
 		name[0] = out[0] = '\0';
-		dcl();                   /* parse rest of line */
+		dcl(); /* parse rest of line */
 		if (tokentype != '\n')
 			printf("%s", "syntax error\n");
 		else if (state == GOOD)
