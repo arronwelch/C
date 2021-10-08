@@ -105,23 +105,30 @@ int main(void)
     printf("(*pname1).str1 = %s\n", (*pname1).str1);
     *(pname1->str1)++; /* increments str after accessing whatever it points to(just like *s++ ) */
     printf("*pname1->str1++ = %c\n", *(pname1->str1++));
-    printf("(*pname1->str1)++ = %c\n", (*pname1->str1)+7);/* 's'+7 = 'z' */
+    printf("(*pname1->str1)++ = %c\n", (*pname1->str1) + 7); /* 's'+7 = 'z' */
 
-    printf("*pname1++->str1 = %c\n",*pname1++->str1 );/* increments p after accessing whatever str points to */
-    printf("*pname1++->str1 = %s\n",pname1->str1 );
+    printf("*pname1++->str1 = %c\n", *pname1++->str1); /* increments p after accessing whatever str points to */
+    printf("*pname1++->str1 = %s\n", pname1->str1);
 
-    char a = 'a',*pa;
-    a = a +1;
-    printf("a = %c\n",a);
+    char a = 'a', *pa;
+    a = a + 1;
+    printf("a = %c\n", a);
     pa = &a;
-    (*pa) ++;
-    printf("a = %c\n",a);
+    (*pa)++;
+    printf("a = %c\n", a);
 
     char *s;
     s = "Hello,World!\n";
-    printf("%s",s);
+    printf("%s", s);
     *s++;
-    printf("%s",s);
+    printf("%s", s);
+
+    int inta, intc;
+    float b = 1.05;
+    inta = 100;
+    intc = 0;
+    intc = inta * b;
+    printf("100.0 * 1.05 = %d %f", intc, 100 * 1.05);
 
     return 0;
 }
