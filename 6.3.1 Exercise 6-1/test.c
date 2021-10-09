@@ -49,7 +49,7 @@ int main(void)
     int n;
     char word[MAXWORD];
 
-    while (getword(word, MAXWORD) != EOF)
+    while (getword(word, MAXWORD) != '$')/* use '$' terminate input */
         if (isalpha(word[0]))
             if ((n = mbinsearch(word, keytab, NKEYS)) >= 0)
                 keytab[n].count++;

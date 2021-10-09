@@ -51,7 +51,7 @@ int main(void)
     char word[MAXWORD];
     struct key *p;
 
-    while (getword(word, MAXWORD) != EOF)
+    while (getword(word, MAXWORD) != '$')/* use '$' terminate input */
         if (isalpha(word[0]))
             if ((p = mbinsearch(word, keytab, NKEYS)) != NULL)
                 p->count++;
