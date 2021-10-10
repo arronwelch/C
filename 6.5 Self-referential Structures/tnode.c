@@ -23,9 +23,9 @@
 
 struct tnode /* the tree node: */
 {
-    char *word; /* points to the test */
-    int count; /* number of occurrences */
-    struct tnode *left; /* left child */
+    char *word;          /* points to the test */
+    int count;           /* number of occurrences */
+    struct tnode *left;  /* left child */
     struct tnode *right; /* right child */
 };
 
@@ -41,9 +41,9 @@ int main(void)
     char word[MAXWORD];
 
     root = NULL;
-    while (getword(word, MAXWORD) != '$')/* use '$' terminate input */
+    while (getword(word, MAXWORD) != '$') /* use '$' terminate input */
         if (isalpha(word[0]))
-            root = addtree(root,word);
+            root = addtree(root, word);
     treeprint(root);
 
     return 0;
@@ -59,14 +59,14 @@ struct tnode *addtree(struct tnode *p, char *w)
 
     if (p == NULL) /* a new word has arrived */
     {
-        p = talloc();/* make a new node */
+        p = talloc(); /* make a new node */
         p->word = mstrdup(w);
         p->count = 1;
         p->left = p->right = NULL;
     }
-    else if ((cond = strcmp(w,p->word)) == 0)
-        p->count++; /* repeated word */
-    else if(cond < 0)/* less than into left subtree */
+    else if ((cond = strcmp(w, p->word)) == 0)
+        p->count++;    /* repeated word */
+    else if (cond < 0) /* less than into left subtree */
         p->left = addtree(p->left, w);
     else /* greater than into right subtree */
         p->right = addtree(p->right, w);
@@ -77,30 +77,29 @@ struct tnode *addtree(struct tnode *p, char *w)
 /* treeprint: in-order print of tree p */
 void treeprint(struct tnode *p)
 {
-    if ( p != NULL)
+    if (p != NULL)
     {
         treeprint(p->left);
-        printf("%4d %s",p->count,p->word);
+        printf("%4d %s", p->count, p->word);
         treeprint(p->right);
     }
 }
-
 
 #include <stdlib.h>
 
 /* talloc: make a tnode */
 struct tnode *talloc(void)
 {
-    return (struct tnode *) malloc(sizeof(struct tnode));
+    return (struct tnode *)malloc(sizeof(struct tnode));
 }
 
-char *mstrdup(char *s)/* make a duplicate of s */
+char *mstrdup(char *s) /* make a duplicate of s */
 {
     char *p;
 
-    p = (char *) malloc(strlen(s)+1);/* +1 for '\0' */
-    if (p != NULL)/* malloc returns NULL if no space is available */
-        strcpy(p,s);
+    p = (char *)malloc(strlen(s) + 1); /* +1 for '\0' */
+    if (p != NULL)                     /* malloc returns NULL if no space is available */
+        strcpy(p, s);
     return p;
 }
 
@@ -134,11 +133,11 @@ int getword(char *word, int lim)
                 w++;
                 break;
             }
-            else if ( *w == EOF)
+            else if (*w == EOF)
                 break;
     }
-    else if ( c == '/')
-        if ( (d = getch()) == '*')
+    else if (c == '/')
+        if ((d = getch()) == '*')
             c = comment();
         else
             ungetch(d);
@@ -153,23 +152,23 @@ int comment(void)
     int c, getch(void);
     void ungetch(int);
 
-    while ( (c = getch()) != EOF)
-        if ( c == '*')
+    while ((c = getch()) != EOF)
+        if (c == '*')
             if ((c = getch()) == '/')
                 break;
             else
                 ungetch(c);
-    
+
     return c;
 }
 
 #define BUFSIZE 100
 char buf[BUFSIZE]; /* buffer for ungetch */
-int bufp = 0; /* next free position in buf */
+int bufp = 0;      /* next free position in buf */
 
 int getch(void) /* get a (possible pushed-back) character */
 {
-    return (bufp>0) ? buf[--bufp] : getchar();
+    return (bufp > 0) ? buf[--bufp] : getchar();
 }
 
 void ungetch(int c) /* push character back on input */

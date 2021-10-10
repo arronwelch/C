@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": ["-n"],
+            "args": ["-3"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
