@@ -27,7 +27,6 @@
  * 
  */
 
-
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -72,26 +71,26 @@ int main(void)
 }
 
 struct tnode *talloc(void);
-char * mstrdup(char *);
+char *mstrdup(char *);
 struct linklist *lalloc(void);
-void addln(struct tnode *, int );
+void addln(struct tnode *, int);
 
 /* addtreex: add a node with w, at or below p */
 struct tnode *addtreex(struct tnode *p, char *w, int linenum)
 {
     int cond;
 
-    if (p == NULL)/* a new word has arrived */
+    if (p == NULL) /* a new word has arrived */
     {
-        p = talloc();/* make a new word */
+        p = talloc(); /* make a new word */
         p->word = mstrdup(w);
         p->lines = lalloc();
         p->lines->lnum = linenum;
         p->lines->ptr = NULL;
         p->left = p->right = NULL;
     }
-    else if ((cond = strcmp (w, p->word)) == 0)
-        addln(p,linenum);
+    else if ((cond = strcmp(w, p->word)) == 0)
+        addln(p, linenum);
     else if (cond < 0)
         p->left = addtreex(p->left, w, linenum);
     else
@@ -108,7 +107,7 @@ void addln(struct tnode *p, int linenum)
     temp = p->lines;
     while (temp->ptr != NULL && temp->lnum != linenum)
         temp = temp->ptr;
-    
+
     if (temp->lnum != linenum)
     {
         temp->ptr = lalloc();
@@ -122,12 +121,12 @@ void treexprint(struct tnode *p)
 {
     struct linklist *temp;
 
-    if(p != NULL)
+    if (p != NULL)
     {
         treexprint(p->left);
         printf("%10s: ", p->word);
-        for( temp = p->lines; temp != NULL; temp = temp->ptr)
-            printf("%4d ",temp->lnum);
+        for (temp = p->lines; temp != NULL; temp = temp->ptr)
+            printf("%4d ", temp->lnum);
         printf("\n");
         treexprint(p->right);
     }
@@ -136,37 +135,36 @@ void treexprint(struct tnode *p)
 /* lalloc: make a linklist node */
 struct linklist *lalloc(void)
 {
-    return (struct linklist *) malloc(sizeof(struct linklist));
+    return (struct linklist *)malloc(sizeof(struct linklist));
 }
 
 /* noiseword: identify word as a noise word */
 int noiseword(char *w)
 {
     static char *nw[] =
-    {
-        "a",
-        "an",
-        "and",
-        "are",
-        "in",
-        "is",
-        "of",
-        "or",
-        "that",
-        "the",
-        "this",
-        "to"
-    };
+        {
+            "a",
+            "an",
+            "and",
+            "are",
+            "in",
+            "is",
+            "of",
+            "or",
+            "that",
+            "the",
+            "this",
+            "to"};
     int cond, mid;
     int low = 0;
-    int high = sizeof(nw) / sizeof(char *) -1;
+    int high = sizeof(nw) / sizeof(char *) - 1;
 
-    while(low <= high)
+    while (low <= high)
     {
         mid = (low + high) / 2;
-        if((cond = strcmp(w,nw[mid])) < 0)
-            high = mid -1;
-        else if(cond > 0)
+        if ((cond = strcmp(w, nw[mid])) < 0)
+            high = mid - 1;
+        else if (cond > 0)
             low = mid + 1;
         else
             return mid;
@@ -199,7 +197,7 @@ int getword(char *word, int lim)
     void ungetch(int);
     char *w = word;
 
-    while (isspace(c = getch()) && c!= '\n')
+    while (isspace(c = getch()) && c != '\n')
         ;
     if (c != EOF)
         *w++ = c;
