@@ -4,6 +4,26 @@
  * of frequency of occurrence. Precede each word by its count.
  */
 
+/*
+
+now is the time for all good men to come to the aid of their party $
+ 2:                 the
+ 2:                  to
+ 1:                 all
+ 1:                come
+ 1:                good
+ 1:                  is
+ 1:                 aid
+ 1:                 now
+ 1:                  of
+ 1:               party
+ 1:                 for
+ 1:               their
+ 1:                time
+ 1:                 men
+
+*/
+
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
