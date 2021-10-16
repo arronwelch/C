@@ -12,8 +12,7 @@
 #include <stdlib.h>
 
 #define MAXWORD 100
-
-// exercise code
+#define HASHSIZE 101
 
 struct nlist /* table entry: */
 {
@@ -22,9 +21,8 @@ struct nlist /* table entry: */
 	char *defn;			/* replacement text */
 };
 
-#define HASHSIZE 101
-
 static struct nlist *hashtab[HASHSIZE]; /* pointer table */
+
 unsigned hash(char *);
 struct nlist *lookup(char *);
 struct nlist *install(char *, char *);
@@ -81,14 +79,6 @@ struct nlist *lookup(char *s)
 	return NULL;	   /* not found */
 }
 
-// for (ptr = head; ptr != NUll; ptr = ptr->next)
-/*
- * the for loop in lookup is the standard idiom for walking along a linked list
- */
-
-// struct nlist *lookup(char *);
-// char *mstrdup(char *);
-
 /* install: put (name,defn) in hashtab */
 struct nlist *install(char *name, char *defn)
 {
@@ -122,22 +112,139 @@ char *mstrdup(char *s) /* make a duplicate of s */
 	return p;
 }
 
-/* uninstall: remove (name) in hashtab */
-int uninstall(char *name)
+/* undef: remove a name and definition from the table */
+void undef(char *s)
 {
-	unsigned hashval;
+	int h;
+	struct nlist *prev, *np;
 
-	if (lookup(name) == NULL) /* not found */
+	prev = NULL;
+	h = hash(s); /* hash value of string s */
+
+	for (np = hashtab[h]; np != NULL; np = np->next)
 	{
-		printf("not found \"%s\"", name);
-		return 0;
+		if (strcmp(s, np->name) == 0)
+			break;
+		prev = np; /* remenber previous entry */
 	}
-	else /* already there */
+
+	if (np != NULL) /* found name */
 	{
-		hashval = hash(name);
-		free((void *)hashtab[hashval]); /* free previous defn */
-		hashtab[hashval] = NULL;
-		printf("undef \"%s\"", name);
-		return 1;
+		if (prev == NULL) /* first in the hash list */
+			hashtab[h] = np->next;
+		else /* elsewhere in the hash list */
+			prev->next = np->next;
+		free((void *)np->name);
+		free((void *)np->defn);
+		free((void *)np); /* free allocated structure */
 	}
+}
+
+/* getdef: get definition and install it */
+void getdef(void)
+{
+	int c, i;
+	char def[MAXWORD], dir[MAXWORD], name[MAXWORD];
+
+	skipblanks();
+	if (!isalpha(getword(dir, MAXWORD)))
+		error(dir[0], "getdef: expecting a directive after '#'");
+	else if (strcmp(dir, "define") == 0)
+	{
+		skipblanks();
+		if (!isalpha(getword(name, MAXWORD)))
+			error(name[0], "getdef: non-alpha - name expected");
+		else
+		{
+			skipblanks();
+			for (i = 0; i < MAXWORD - 1; i++)
+				if ((def[i] = getch()) == EOF || def[i] == '\n')
+					break; /* end of definition */
+			def[i] = '\0';
+			if (i <= 0)
+				error('\n', "getdef: incomplete define");
+			else
+				install(name, def);
+		}
+	}
+	else if (strcmp(dir, "undef") == 0)
+	{
+		skipblanks();
+		if (!isalpha(getword(name, MAXWORD)))
+			error(name[0], "getdef: non-alpha in undef");
+		else
+			undef(name);
+	}
+	else
+		error(dir[0], "getdef: expecting a directive after '#'");
+}
+
+/* error: print error message and skip the rest of the line */
+void error(int c, char *s)
+{
+	printf("error: %s\n",s);
+	while (c != EOF && c != '\n')
+		c = getch();
+}
+
+/* skipblanks: skip blank and tab characters */
+void skipblanks(void)
+{
+	int c;
+
+	while ((c = getch()) == ' ' || c == '\t')
+		;
+	ungetch(c);
+}
+
+/* getword: get next word or character from input */
+int getword(char *word, int lim)
+{
+    int c, getch(void);
+    void ungetch(int);
+    char *w = word;
+
+    while (isspace(c = getch()))
+        ;
+    if (c != EOF)
+        *w++ = c;
+    if (!isalpha(c))
+    {
+        *w = '\0';
+        return c;
+    }
+    for (; --lim > 0; w++)
+        if (!isalnum(*w = getch()))
+        {
+            ungetch(*w);
+            break;
+        }
+    *w = '\0';
+    return word[0];
+}
+
+#define BUFSIZE 100
+char buf[BUFSIZE]; /* buffer for ungetch */
+int bufp = 0; /* next free position in buf */
+
+int getch(void) /* get a (possible pushed-back) character */
+{
+    return (bufp>0) ? buf[--bufp] : getchar();
+}
+
+void ungetch(int c) /* push character back on input */
+{
+    if (bufp >= BUFSIZE)
+        printf("ungetch: too many characters\n");
+    else
+        buf[bufp++] = c;
+}
+
+/* ungets: push back s onto the input */
+void ungets(char s[])
+{
+	int i;
+
+	for (i = strlen(s) - 1; i >= 0 ; --i)
+			ungetch(s[i]);
 }
