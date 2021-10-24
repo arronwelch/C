@@ -98,5 +98,17 @@ int main(void)
     */
     printf("%s\n", s);
 
+    //precision example:
+    printf("\nprecision example:\n");
+    char str[]="hello, world";//12 characters
+    printf(":%s:\n",str);
+    printf(":%10s:\n",str);//A number that specifies the minimum field width.
+    printf(":%.10s:\n",str);//A period, which separates the field width from the precision.
+    printf(":%-10s:\n",str);
+    printf(":%.15s:\n",str);
+    printf(":%-15s:\n",str);
+    printf(":%15.10s:\n",str);
+    printf(":%-15.10s:\n",str);
+
     return 0;
 }
