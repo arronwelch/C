@@ -47,5 +47,5 @@ void minprintf(char *fmt, ...)
                 break;
             }
         }
-        va_end(ap);
+        va_end(ap);/* clean up when done */
 }
