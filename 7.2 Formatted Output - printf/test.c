@@ -76,5 +76,27 @@ int main(void)
     printf("\n11th new:\n");
     printf("%%\n");//%: no argument is converted;print a %
 
+    //12th new:
+    /*
+        A width or precision may be specified as *, in which case the value is computed by converting the next argument(which must be an int).
+        For example, to print at most max characters from a string s,
+    */
+    printf("\n12th new:\n");
+    int max1 = 5;
+    char *s1="12345";
+    printf("%.*s\n",max1, s1);
+
+    //13th new:
+    printf("\nNoncompliant Code Example:\n");
+    const char s[3] = "abc";
+    /*
+    This noncompliant code example initializes an array of characters using a string literal that defines one character more
+    (counting the terminating '\0')than the array can hold:
+    The size of the array s is 3, although the size of the string literal is 4.
+    Any subsquent use of the array as a null-terminated byte string can result in a vulnerability,
+    because s is not properly null-terminated.
+    */
+    printf("%s\n", s);
+
     return 0;
 }
