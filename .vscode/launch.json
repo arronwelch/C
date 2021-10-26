@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": ["emcat.c"],
+            "args": ["testcopy1.c","testcopy2.c"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
