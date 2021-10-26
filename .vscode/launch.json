@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": ["mcat.c","test.c"],
+            "args": ["emcat.c"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
