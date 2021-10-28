@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": ["-n","first difference","testcopy2.c"],
+            "args": ["printfile.c","testcopy2.c"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
