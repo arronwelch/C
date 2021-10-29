@@ -2,6 +2,7 @@
     "files.associations": {
         "cstdlib": "c",
         "stdarg.h": "c",
-        "cstdio": "c"
+        "cstdio": "c",
+        "typeinfo": "c"
     }
 }
