@@ -3,6 +3,7 @@
         "cstdlib": "c",
         "stdarg.h": "c",
         "cstdio": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "unistd.h": "c"
     }
 }
