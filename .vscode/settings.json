@@ -4,6 +4,7 @@
         "stdarg.h": "c",
         "cstdio": "c",
         "typeinfo": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "syscalls.h": "c"
     }
 }
