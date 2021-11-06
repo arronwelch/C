@@ -5,6 +5,7 @@
         "cstdio": "c",
         "typeinfo": "c",
         "unistd.h": "c",
-        "syscalls.h": "c"
+        "syscalls.h": "c",
+        "ssp.h": "c"
     }
 }
