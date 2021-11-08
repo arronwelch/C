@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": ["filecopy1.c","filecopy2.c"],
+            "args": ["fsize.c","dirent.h"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
