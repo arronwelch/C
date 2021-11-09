@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": ["fsize.c","dirent.h"],
+            "args": ["mfsize.c","dirent.h"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
