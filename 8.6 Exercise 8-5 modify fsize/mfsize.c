@@ -11,6 +11,7 @@
 #include <sys/types.h> /* typedefs */
 #include <sys/stat.h> /* structure returned by stat */
 #include "dirent.h"
+#include <stdlib.h>
 
 void fsize(char *);
 void mfsize(char *);

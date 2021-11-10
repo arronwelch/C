@@ -6,6 +6,14 @@
         "typeinfo": "c",
         "unistd.h": "c",
         "syscalls.h": "c",
-        "ssp.h": "c"
+        "ssp.h": "c",
+        "cctype": "c",
+        "cfloat": "c",
+        "climits": "c",
+        "cmath": "c",
+        "cstdarg": "c",
+        "cstdint": "c",
+        "type_traits": "c",
+        "limits": "c"
     }
 }
