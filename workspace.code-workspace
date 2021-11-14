@@ -16,7 +16,9 @@
 			"limits.h": "c",
 			"sstream": "c",
 			"cstdlib": "c",
-			"memory": "c"
+			"memory": "c",
+			"syscall.h": "c",
+			"syscalls.h": "c"
 		}
 	}
 }
