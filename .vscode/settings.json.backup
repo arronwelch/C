@@ -1,9 +1,0 @@
-{
-    "C_Cpp.intelliSenseEngineFallback": "Enabled",
-    "remote.SSH.remotePlatform": {
-        "192.168.64.129": "linux",
-        "192.168.119.128": "linux"
-    },
-    "http.proxySupport": "off",
-    "git.confirmSync": false
-}
