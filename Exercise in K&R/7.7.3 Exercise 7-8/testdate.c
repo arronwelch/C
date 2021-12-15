@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <time.h>
 
+/**
+ * 16838 5758 10113 17515 31051 5627 23010 7419 16212 4086
+ * */
+
 int mrand(void);
 void msrand(unsigned int seed);
 
@@ -17,6 +21,7 @@ int main()
     free(ip);
 
     msrand(time(NULL));
+    printf("%ld \n", time(NULL));
     for (size_t i = 0; i < 10; i++)
     {        
         printf("%d ", mrand());
