@@ -3,3 +3,7 @@ Stanford Engineering
 Programming Paradigms
 CS 107 - Lecture 2
 Jerry Cain,Lecturer
+
+
+~/study/C/Exercise in K&R$ find -type f ! -name '*.*' -delete
+~/study/C/Exercise in K&R$ find -type f -name '*.exe' -delete
