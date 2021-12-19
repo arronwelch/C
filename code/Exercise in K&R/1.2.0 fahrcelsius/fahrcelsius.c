@@ -40,7 +40,7 @@ void Fahr2Celsius(void)
     step = 20;       /* step size */
 
     fahr = lower;
-    printf("fahr\tcelsius\n",fahr,celsius);
+    printf("fahr\tcelsius\n");
     while (fahr <= upper) {// The position of braces is less
                            // important, although people hold passionate beliefs.
         // celsius = 5 * (fahr-32) / 9;
@@ -65,7 +65,7 @@ void Celsius2Fahr(void)
     step = 20;       /* step size */
 
     celsius = lower;
-    printf("celsius\tfahr\n",fahr,celsius);
+    printf("celsius\tfahr\n");
     while (celsius <= upper) {// The position of braces is less
                            // important, although people hold passionate beliefs.
         // celsius = 5 * (fahr-32) / 9;
