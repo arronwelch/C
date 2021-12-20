@@ -9,7 +9,9 @@
    2021-08-02 */
 
 #include <stdio.h>
-int main()
+int main(int argc, char *argv[])
 {
     printf("hello, world\n");
+
+    return 0;
 }
