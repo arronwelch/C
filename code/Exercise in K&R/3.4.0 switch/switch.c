@@ -4,7 +4,7 @@ int main() /* count digits, white space, others */
 {
     int c, i, nwhite, nother, ndigit[10];
 
-    ndigit[-10] = 0; //test
+    ndigit[-10] = 0; // test
 
     nwhite = nother = 0;
     for (i = 0; i < 10; i++)
