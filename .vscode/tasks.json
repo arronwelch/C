@@ -7,7 +7,7 @@
             "args": [
                 "-Wall",
                 "-pedantic",
-                "-Werror ",
+                // "-Werror ",
                 "-Wextra ",
                 "-fdiagnostics-color=always",
                 "-g",
