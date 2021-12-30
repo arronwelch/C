@@ -34,6 +34,7 @@ char *mystrcmp(char *dst, const char *src)
     // }
     while (*dst++ = *src++)
         ;
+    *dst = '\0';
 
     return ret;
 }
@@ -47,9 +48,8 @@ int main(int argc, char **argv)
     strcpy(dst,src);
     printf("%s\n",dst);
 
-    strcpy(mydst,src);
+    mystrcmp(mydst,src);
     printf("%s\n",mydst);
-
 
     free(dst);
     free(mydst);
