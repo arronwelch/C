@@ -8,17 +8,17 @@
 //     struct _node *next;
 // } Node;
 
-typedef struct _list{
+typedef struct _list
+{
     Node *head;
     // Node *tail;
 } List;
 
 void add(List *pList, int number);
+void print(List *list);
 
 int main(int argc, char const *argv[])
 {
-    // Node *head = NULL;
-
     List list;
     list.head = NULL;
 
@@ -28,9 +28,51 @@ int main(int argc, char const *argv[])
         scanf("%d", &number);
         if (number != -1)
         {
-            add(&list,number);
+            add(&list, number);
         }
     } while (number != -1);
+
+    print(&list);
+    scanf("%d", &number);
+    Node *p;
+    int isFound = 0;
+    for (p = list.head; p; p = p->next)
+    {
+        if (p->value == number)
+        {
+            printf("isFound\n");
+            isFound = 1;
+            break;
+        }
+    }
+    if (!isFound)
+    {
+        printf("isNoFound\n");
+    }
+
+    Node *q;
+    for (q = NULL, p = list.head; p; q = p, p = p->next)
+    {
+        if (p->value == number)
+        {
+            if (q)
+            {
+                q->next = p->next;
+            }
+            else
+            {
+                list.head = p->next;
+            }
+            free(p);
+            break;
+        }
+    }
+
+    for (p = list.head; p; p = q)
+    {
+        q = p->next;
+        free(p);
+    }
 
     return 0;
 }
@@ -56,4 +98,14 @@ void add(List *pList, int number)
     {
         pList->head = p;
     }
+}
+
+void print(List *pList)
+{
+    Node *p;
+    for (p = pList->head; p; p = p->next)
+    {
+        printf("%d\t", p->value);
+    }
+    printf("\n");
 }
