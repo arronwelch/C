@@ -44,5 +44,14 @@ int main(void)
     printf("%d\n",cat(var,123));
     printf("%d\n",xcat(xcat(var1,2),3));
 
+    #ifdef __vax__
+    #error "Won't work on VAXen.  See comments at get_last_object."
+    #endif
+
+    #if !defined(FOO) && defined(BAR)
+    #error "BAR requires FOO."
+    #warning "BAR requires FOO."
+    #endif
+
     return 0;
 }
