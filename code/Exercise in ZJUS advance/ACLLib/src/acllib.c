@@ -113,7 +113,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine,
 {
 	MSG          msg;
 	WNDCLASSA     wndclass;
-    
+
 	g_hInstance = hInstance;
 	g_hWnd = NULL;
     g_keyboard = NULL;
@@ -152,8 +152,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine,
 
 //
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
-{ 
-	switch (message) 
+{
+	switch (message)
 	{
 	case WM_CREATE:
 		{
@@ -163,12 +163,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 				hdc, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN));
 			g_hmemdc = CreateCompatibleDC(hdc);
 			SelectObject(g_hmemdc, g_hbitmap);
-			BitBlt(g_hmemdc, 
-				0, 0, 
+			BitBlt(g_hmemdc,
+				0, 0,
 				GetSystemMetrics(SM_CXSCREEN),
-				GetSystemMetrics(SM_CYSCREEN), 
-				g_hmemdc, 
-				0, 0, 
+				GetSystemMetrics(SM_CYSCREEN),
+				g_hmemdc,
+				0, 0,
 				WHITENESS);
 			DeleteDC(g_hmemdc);
 			ReleaseDC(hwnd, hdc);
@@ -187,7 +187,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			HDC hdc;
 			PAINTSTRUCT ps;
 			RECT rect;
-			
+
 			hdc = BeginPaint(hwnd, &ps);
 			g_hmemdc = CreateCompatibleDC(hdc);
 			SelectObject(g_hmemdc, g_hbitmap);
@@ -300,11 +300,11 @@ void initWindow(const char *wndName, int x, int y, int width, int height)
 
 	if(x==DEFAULT || y==DEFAULT)
 		x=y=CW_USEDEFAULT;
-	
+
 	g_hWnd = CreateWindowA (
         g_wndClassName, wndName,
 		WS_OVERLAPPEDWINDOW & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX,
-		x, y, 
+		x, y,
 		width, height,
 		NULL, NULL, 0, NULL) ;
 
@@ -347,11 +347,11 @@ void beginPaint()
 	HDC hdc;
 
 	ACL_ASSERT_HWND;
-	
+
 	hdc = GetDC(g_hWnd);
 	g_hmemdc = CreateCompatibleDC(hdc);
 	SelectObject(g_hmemdc,g_hbitmap);
-	 
+
 	updatePen();
 	updateBrush();
 	updateFont();
@@ -361,7 +361,7 @@ void beginPaint()
 
 void endPaint()
 {
-	DeleteDC(g_hmemdc);	
+	DeleteDC(g_hmemdc);
 	g_hmemdc = 0;
     InvalidateRect(g_hWnd,0,0);
 
@@ -377,13 +377,13 @@ void clearDevice(void)
 {
 	ACL_ASSERT_BEGIN_PAINT;
 	BitBlt(
-		g_hmemdc, 
-		0, 0, 
-		GetSystemMetrics(SM_CXSCREEN), 
-		GetSystemMetrics(SM_CYSCREEN) , 
-		g_hmemdc, 
+		g_hmemdc,
 		0, 0,
-		WHITENESS);	
+		GetSystemMetrics(SM_CXSCREEN),
+		GetSystemMetrics(SM_CYSCREEN) ,
+		g_hmemdc,
+		0, 0,
+		WHITENESS);
 }
 
 void updatePen()
@@ -406,7 +406,7 @@ void updateBrush()
 	else
 	{
 		if(g_brushStyle==BRUSH_STYLE_SOLID)
-			g_brush = CreateSolidBrush(g_brushColor);	
+			g_brush = CreateSolidBrush(g_brushColor);
 		else
 			g_brush = CreateHatchBrush(g_brushStyle,g_brushColor);
 	}
@@ -426,7 +426,7 @@ void updateFont()
 void setPenColor(ACL_Color newColor)
 {
 	ACL_ASSERT_BEGIN_PAINT;
-    g_penColor = newColor;    
+    g_penColor = newColor;
     updatePen();
 }
 
@@ -447,11 +447,11 @@ void setPenStyle(ACL_Pen_Style newStyle)
 		g_penStyle = PS_SOLID; break;
 	case PEN_STYLE_DASH:
 		g_penStyle = PS_DASH; break;
-	case PEN_STYLE_DOT:	
+	case PEN_STYLE_DOT:
 		g_penStyle = PS_DOT; break;
 	case PEN_STYLE_DASHDOT:
 		g_penStyle = PS_DASHDOT; break;
-	case PEN_STYLE_DASHDOTDOT:	
+	case PEN_STYLE_DASHDOTDOT:
 		g_penStyle = PS_DASHDOTDOT; break;
 	case PEN_STYLE_NULL:
 		g_penStyle = -1;
@@ -473,22 +473,22 @@ void setBrushColor(ACL_Color newColor)
 void setBrushStyle(ACL_Brush_Style newStyle)
 {
 	ACL_ASSERT_BEGIN_PAINT;
-	
+
 	switch(newStyle)
 	{
 	case BRUSH_STYLE_SOLID:
 		g_brushStyle = BRUSH_STYLE_SOLID; break;
-	case BRUSH_STYLE_HORIZONTAL:	
+	case BRUSH_STYLE_HORIZONTAL:
 		g_brushStyle = HS_HORIZONTAL; break;
-	case BRUSH_STYLE_VERTICAL:		
+	case BRUSH_STYLE_VERTICAL:
 		g_brushStyle = HS_VERTICAL; break;
-	case BRUSH_STYLE_FDIAGONAL:		
+	case BRUSH_STYLE_FDIAGONAL:
 		g_brushStyle = HS_FDIAGONAL; break;
-	case BRUSH_STYLE_BDIAGONAL:		
+	case BRUSH_STYLE_BDIAGONAL:
 		g_brushStyle = HS_BDIAGONAL; break;
-	case BRUSH_STYLE_CROSS:			
+	case BRUSH_STYLE_CROSS:
 		g_brushStyle = HS_CROSS; break;
-	case BRUSH_STYLE_DIAGCROSS:		
+	case BRUSH_STYLE_DIAGCROSS:
 		g_brushStyle = HS_DIAGCROSS; break;
 	case BRUSH_STYLE_NULL:
 		g_brushStyle = BRUSH_STYLE_SOLID;
@@ -518,7 +518,7 @@ void setTextBkColor(ACL_Color color)
 	{
 		SetBkMode(g_hmemdc,OPAQUE);
 		SetBkColor(g_hmemdc,color);
-	}	
+	}
 }
 
 void setTextSize(int size)
@@ -530,15 +530,15 @@ void setTextSize(int size)
 
 void setTextFont(const char *pfn)
 {
-	size_t len;
+	// size_t len;//set but not used [-Wunused-but-set-variable]
 	ACL_ASSERT_BEGIN_PAINT;
-	len = strlen(pfn);
+	// len = strlen(pfn);
 	strcpy(g_fontName,pfn);
 	updateFont();
 }
 
 void paintText(int x, int y, const char *textstring)
-{	
+{
 	ACL_ASSERT_BEGIN_PAINT;
 	TextOutA(g_hmemdc, x, y, textstring, strlen(textstring));
 }
@@ -546,7 +546,7 @@ void paintText(int x, int y, const char *textstring)
 void putPixel(int x, int y, ACL_Color color)
 {
 	ACL_ASSERT_BEGIN_PAINT;
-	SetPixel(g_hmemdc, x, y, color);	
+	SetPixel(g_hmemdc, x, y, color);
 }
 
 ACL_Color getPixel(int x, int y)
@@ -593,7 +593,7 @@ void moveTo(int x, int y)
 
 void moveRel(int dx, int dy)
 {
-	POINT point;	
+	POINT point;
 	ACL_ASSERT_BEGIN_PAINT;
 	GetCurrentPositionEx(g_hmemdc, &point);
 	MoveToEx(g_hmemdc, (int) point.x + dx, (int) point.y + dy,NULL);
@@ -608,7 +608,7 @@ void arc(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4)
 
 void line(int x0, int y0, int x1, int y1)
 {
-	POINT point;	
+	POINT point;
 	ACL_ASSERT_BEGIN_PAINT;
 	GetCurrentPositionEx(g_hmemdc, &point);
 	MoveToEx(g_hmemdc, x0, y0, NULL);
@@ -738,20 +738,20 @@ void loadImage(const char *image, ACL_Image *mapbuf)
 	if(file == INVALID_HANDLE_VALUE)
 		acl_error("Fail to load image, File not exist");
 	filesize = GetFileSize(file, NULL);
-	
+
 	global = GlobalAlloc(GMEM_MOVEABLE, filesize);
 	data = GlobalLock(global);
 	ReadFile(file, data, filesize, &bytes, NULL);
 	GlobalUnlock(global);
 	CreateStreamOnHGlobal(global, TRUE, &istream);
-	
+
 	OleLoadPicture(istream, filesize, TRUE, &IID_IPicture, (LPVOID*)&ipicture);
 	ipicture->lpVtbl->get_Width(ipicture, &width);
 	ipicture->lpVtbl->get_Height(ipicture, &height);
 
 	mapbuf->width = (int)(width / 26.45833333333);
 	mapbuf->height = (int)(height / 26.45833333333);
-	
+
 	hmapdc = CreateCompatibleDC(GetDC(g_hWnd));
 	if (mapbuf->hbitmap != NULL)
 		DeleteObject(mapbuf->hbitmap);
@@ -765,7 +765,7 @@ void loadImage(const char *image, ACL_Image *mapbuf)
 	DeleteDC(hmapdc);
 	GlobalFree(global);
 	CloseHandle(file);
-} 
+}
 
 void freeImage(ACL_Image *mapbuf)
 {
