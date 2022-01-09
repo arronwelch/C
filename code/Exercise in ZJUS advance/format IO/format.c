@@ -33,8 +33,12 @@ int main(int argc, char const *argv[])
     printf("%lld\n", 12345LL); // "long long"
     printf("%Lf\n", 12345.0);  // "double"
     printf("%Lf\n", 12345.0L); // "long double"
-    
+
+    printf("%.3e\n", 12345.6); // "long double"
+    printf("%.3E\n", 12345.6); // "long double"
     printf("%.3g\n", 12345.6); // "long double"
+    printf("%.4g\n", 12345.6); // "long double"
+    printf("%g\n", 1.2345e4); // "long double"
 
     int num = 0;
     printf("%d%n\n",123,&num);
