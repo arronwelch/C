@@ -1,7 +1,3 @@
-#include <stdio.h>
-
-#define MAX 60
-
 /*
 dynamic programming (0-1 knapsack problem)
 
@@ -15,21 +11,28 @@ column: the max volume
 ------------------------------------------
     0 1 2 3 4 5 6 7 8
   0 0 0 0 0 0 0 0 0 0
-  1 0
-  2 0
+  1 0 0 3 3 3 3 3 3 3
+  2 0 0 3 4
   3 0
   4 0
 
+1.if can't load current item, the last n item's dp equal to the (n-1) item's dp;
+2.id can load current item:
+    (1) select load current item:when total volume - current the n-th item volume,(n-1) item's dp + current value;
+    (2) not select load current item: current the n-th item's dp equal to the (n-1) item's dp.
 */
 
-int main()
+#include <stdio.h>
+
+#define max(x,y) (x)>(y)?(x):(y)
+
+int main(void)
 {
     int N,m;
-    scanf("%d %d",&N,&m);
-    int v[MAX],w[MAX],q[MAX],sum[MAX];
-    for(int i=0;i<m;i++)
+    while (scanf("%d %d",&N,&m) != EOF)
     {
-        scanf("%d %d %d",&v[i],&w[i],&q[i]);
+        int value[63][3] = {0};
     }
+
     return 0;
 }
