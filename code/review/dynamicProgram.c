@@ -21,18 +21,3 @@ column: the max volume
     (1) select load current item:when total volume - current the n-th item volume,(n-1) item's dp + current value;
     (2) not select load current item: current the n-th item's dp equal to the (n-1) item's dp.
 */
-
-#include <stdio.h>
-
-#define max(x,y) (x)>(y)?(x):(y)
-
-int main(void)
-{
-    int N,m;
-    while (scanf("%d %d",&N,&m) != EOF)
-    {
-        int value[63][3] = {0};
-    }
-
-    return 0;
-}
