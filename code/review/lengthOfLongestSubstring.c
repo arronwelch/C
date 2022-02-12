@@ -18,15 +18,17 @@ int lengthOfLongestSubstring(char * s)
 {
     int max=0,cnt = 0;
     char substr[MAX_LEN] = {0};
-    for(int i=0; s[i] != '\0';i++,cnt++)
+    for(int i=0; s[i+cnt] != '\0';cnt++)
     {
-        substr[cnt] = s[i];
+        substr[cnt] = s[i+cnt];
         for(int j=0;j<cnt;j++)
         {
             if(substr[cnt] == substr[j])
             {
                 cnt = 0;
-                substr[cnt] = s[i];
+                substr[cnt] = s[i+cnt];
+                i++;
+                cnt--;
                 break;
             }
         }
@@ -40,11 +42,7 @@ int lengthOfLongestSubstring(char * s)
 }
 
 /*
-2016637367
-79784533
-198243628
-12265700
-631875103
-56966682
-
+人生的每一天都是独一无二的，爱生活，爱自己，其实就是每天简简单单的吃饭睡觉，刷刷洗洗；
+不在乎别人的眼光，勇往直前；
+每天给父母打个电话；
 */
