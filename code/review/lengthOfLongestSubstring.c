@@ -77,7 +77,7 @@ int lengthOfLongestSubstring(char * s){
 
 
 // rebuilding with sliding window & hash
-//
+// just read c plus plus
 
 /*
 人生的每一天都是独一无二的，爱生活，爱自己，其实就是每天简简单单的吃饭睡觉，刷刷洗洗；
