@@ -1,6 +1,6 @@
 /**
  * This program reads input lines from standard input and prints
- each input line,followed by just some protions of the line, to
+ * each input line,followed by just some protions of the line, to
  * the standard output.
  *
  * The first input is a lint of column numbers, which ends with a
@@ -17,7 +17,7 @@ Original input: abcdefghijklmnopqrstuvwxyz
 Rearranged line: efghijmnopqrstu
 Hello there, how are you?
 Original input: Hello there, how are you?
-Rearranged line: o ther how are 
+Rearranged line: o ther how are
 I am fine, thanks.
 Original input: I am fine, thanks.
 Rearranged line:  fine,hanks.
@@ -118,12 +118,19 @@ void rearrange(char *output, char const *input, int n_columns, int const columns
     for (col = 0; col < n_columns; col += 2)
     {
         int nchars = columns[col + 1] - columns[col] + 1;
-        // 2 - 0 + 1= 3 (0 1 2)
+        // nchars = columns[0+1] - columns[0] + 1
+        // nchar = 3 - 0 + 1  == 4 // count character
+/*
+ * For example, 0 3 10 12 -1 indicates that only columns 0 through 3
+ * and columns 10 through 12 will be printed.
+ */
 
         /*
         **  If the input line isn't this long or the output array is full, we're done.
         */
         if (columns[col] >= len || output_col == MAX_INPUT - 1)
+        // [columns[col]](input copy start index) over the length of input
+        // [output_col](output copy start index) over the length of input
         {
             break;
         }
@@ -133,11 +140,16 @@ void rearrange(char *output, char const *input, int n_columns, int const columns
         */
         if (output_col + nchars > MAX_INPUT - 1)
         {
-            nchars = MAX_INPUT - output_col - 1; // ???
-            // nchars = MAX_INPUT - output_col;
+            nchars = MAX_INPUT - output_col - 1;// ???
         }
-        // 0+20 > 20-1
-        // 20-0-1 = 19( 0 1 2 ... 18 )
+        // 0 + 2000 > 1000 - 1
+        // nchars = 999 - 0
+        // nchars = MAX_INPUT -output_col;
+        // nchars = 1000 - 0
+        if (columns[col] + nchars > MAX_INPUT - 1)
+        {
+            nchars = MAX_INPUT - columns[col];
+        }
 
         /*
         **  Copy the relevent data.
