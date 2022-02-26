@@ -1,1 +1,148 @@
+
+Operating System:A body of software,in fact,that is responsible for making it easy to run
+programs(even allowing you to seemungly run many at the same time),allowing programs to share
+memory,enabling programs to interact with devices, and other fun stuff like that.
+
+									----OSTEP
+vi hello.c
+
+#include <stdio.h>
+
+int main()
+{
+	printf("Hello,World!\n"); 
+	return 0;
+} 
+gcc hello.c
+
+./a.out
+
+ 
+Hello,World!
+
+ls -l
+
 objdump -d a.out | less
+
+vacuum tubes
+delay lines
+
+System:
+1 x CPU
+1 x printer
+1 x disk
+
+// P1:
+  (1) compute    
+  (2) printer
+      
+      
+// P2:
+  (1) compute
+  (2) save to disk (file)
+ 
+------------------------------------------->
+ 
+P1 compute; P1 print;(switch out)  ...........
+            P2 compute; P2 save to disk; .....
+
+P1 compute; --> (10ms switch out) --> P2 compute --> (10ms) --> P1 ... 
+
+P1 compute ... (interrupt)				      P2 compute ...
+		|					      |
+		+ ---> (interrupt handler) ---> switch to P2 -+
+System: 2MB
+
+isolate program
+
+10
+P1: 4KB   ->    *(some-bad-addr) = 0;  -> crash
+P2: 68KB
+P3: 1MB
+P4: 4KB
+P5: 4KB
+...
+
+"scheduling" 
+
+
+a.out (dead loop) ------+
+			|
+			+
+		    interrupt --> OS --> other process.
+
+
+
+
+modern era.
+[end]
+
+PASCAL(1970),C(1972),...
+
+seq 1 10000 | less
+
+
+seq 1 1000000 | grep 100 | wc -l
+
+cd /proc
+
+ls
+
+cat cpuinfo | less
+
+cd 1
+
+ls
+
+pwd
+
+sudo cat maps
+
+cat stat
+
+cat cmdline
+
+1973: signal API,tube(objects),grep(app)
+1983: BSD socket(object)
+1984: procfs(object)
+
+UNIX
+
+Linux
+ELF(executable linkable format)
+
+vi a.c
+
+int main(){
+}
+
+gcc -c a.c
+man gcc
+file a.o
+gcc a.o -o aa.out
+file aa.out
+ps ax | less
+
+core utilities(coreutils)
+ - standard programs for text and file manipulation
+ - GNU Coreutils
+	- busybox
+
+ps
+ip address
+ls
+/bin/ls --color
+vi /bin/ls
+/--color
+man ls
+ELF
+cat /bin/ls
+xxd /bin/ls | less
+
+readelf ELF header mat data
+
+man readelf
+
+readelf -h /bin/ls
+readelf -l /bin/ls
+
