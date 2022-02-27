@@ -1,3 +1,4 @@
+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
 
 Operating System:A body of software,in fact,that is responsible for making it easy to run
 programs(even allowing you to seemungly run many at the same time),allowing programs to share
@@ -24,7 +25,7 @@ ls -l
 
 objdump -d a.out | less
 
-vacuum tubes
+vacuur tubes
 delay lines
 
 System:
@@ -139,10 +140,199 @@ ELF
 cat /bin/ls
 xxd /bin/ls | less
 
-readelf ELF header mat data
+readelf ELF header meta data
 
 man readelf
 
 readelf -h /bin/ls
 readelf -l /bin/ls
+
+vim /usr/include/elf.h
+
+mkdir deo
+mv deo demo
+ls
+cd demo
+vi hello.c
+
+#include <stdio.h>
+
+int main(){
+  printf("Hello,World!\n");
+}
+
+cat hello.c
+ls
+
+./a.out
+
+file a.out
+
+ls
+
+rm a.out
+
+ls
+
+gcc -c hello.c
+ls -l
+file hello.o
+ld hello.o
+
+vi hello.c
+
+// #include <stdio.h>
+
+int main(){
+  // printf("Hello,World!\n");
+}
+
+gcc -c hello.c
+objdump -d hello.o
+
+ld -e main hello.o
+
+file a.out
+
+./a.out
+Segmentation fault (core dumped)
+gdb a.out
+starti
+layout asm
+info register
+si
+si
+si
+si
+       call - return    
+nobody call main function,so stack is empty
+
+bt
+
+Cannot access memory at address 0x1
+
+q
+
+y
+
+vim minimal.S
+
+# See also: man 2 syscall
+
+.globl foo
+foo:
+  movl $1,	%eax # write(
+  movl $1,	%edi #   fd=1,
+  movq $s,	%rsi #   buf=s,
+  movl $(e-s),	%edx #   count=e-s
+  syscall	     # );
+
+  movl $60, %eax     # exit(
+  movl $1,  %edi     #   status=1
+  syscall 	     # );
+
+s:
+  .ascii "\033[01;31mHello, OS World\033[0m\n"
+e:
+[ESC]:wq
+ls
+gcc -c minimal.S
+ls
+cat minimal.S
+ld -e foo minimal.o
+file a.out
+onjdump -d a.out
+
+a.out:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000401000 <foo>:
+  401000:	b8 01 00 00 00       	mov    $0x1,%eax
+  401005:	bf 01 00 00 00       	mov    $0x1,%edi
+  40100a:	48 c7 c6 24 10 40 00 	mov    $0x401024,%rsi
+  401011:	ba 1c 00 00 00       	mov    $0x1c,%edx
+  401016:	0f 05                	syscall 
+  401018:	b8 3c 00 00 00       	mov    $0x3c,%eax
+  40101d:	bf 01 00 00 00       	mov    $0x1,%edi
+  401022:	0f 05                	syscall 
+
+0000000000401024 <s>:
+  401024:	1b 5b 30             	sbb    0x30(%rbx),%ebx
+  401027:	31 3b                	xor    %edi,(%rbx)
+  401029:	33 31                	xor    (%rcx),%esi
+  40102b:	6d                   	insl   (%dx),%es:(%rdi)
+  40102c:	48                   	rex.W
+  40102d:	65 6c                	gs insb (%dx),%es:(%rdi)
+  40102f:	6c                   	insb   (%dx),%es:(%rdi)
+  401030:	6f                   	outsl  %ds:(%rsi),(%dx)
+  401031:	2c 20                	sub    $0x20,%al
+  401033:	4f 53                	rex.WRXB push %r11
+  401035:	20 57 6f             	and    %dl,0x6f(%rdi)
+  401038:	72 6c                	jb     4010a6 <e+0x66>
+  40103a:	64 1b 5b 30          	sbb    %fs:0x30(%rbx),%ebx
+  40103e:	6d                   	insl   (%dx),%es:(%rdi)
+  40103f:	0a                   	.byte 0xa
+
+:wq
+ls
+gcc -c minimal.S
+ls
+cat minimal.S
+ld -e foo minimal.o
+file a.out
+onjdump -d a.out
+
+a.out:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+./a.out
+
+Hello, OS World
+
+echo $?
+1
+
+gcc -g minimal.c
+objdump -S a.out | less
+/main
+
+<syscall@plt>// dynamic linked library
+
+#include <stdio.h>
+
+__attribute__((constructor)) void hello() {
+	printf("Hello,World\n");
+}
+
+
+// See also: atexit(3)
+__attribute__((destructor)) void goodbye() {
+	printf("Goodbye, Cruel OS World!\n");
+}
+
+int main() {
+}
+
+gdb a.out
+starti
+info registers
+info inferiors
+!ls
+!pmap 32126
+
+Trace
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+In general, trace refers to the process of following anything from the
+beginning to the end.For example, the traceroute command follows each of
+the network hops as your computer connects to another computer.
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+In this class important tool: strace
+ - system call trace
+ - understand the system call in program running
+   - demo: strace hello-goodbye
+   - strace output; mmap; execve;
 
