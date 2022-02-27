@@ -1,11 +1,13 @@
 # C
 Exercise in K&R's The C Programming Language (2nd Edition).
 
-    vi ~./gitconfig
+git config --global user.name username
+git config --global user.email email@email.com
 
-    [http]
-        postBuffer = 524288000
-        proxy = http://192.168.119.1:24531
-    [https]
-        postBuffer = 524288000
-        proxy = https://192.168.119.1:24531
+git config --list
+
+git config --global http.proxy http://192.168.10.1:12334
+git config --global https.proxy https://192.168.10.1 12334
+
+cat ~/.gitconfig
+
