@@ -337,3 +337,34 @@ In this class important tool: strace
    - demo: strace hello-goodbye
    - strace output; mmap; execve;
 
+strace ./a.out
+strace ./a.out > /dev/null
+
+ father process - execve
+ fork, execve, exit, ...
+ open, close, read, write, ...
+ mmap, brk, ...
+ _exit(exit_group)
+
+ .c --> (preprocess) --> .i --> (compile) --> .s --> (assembly) --> .o --> (link) --> a.out(default).
+
+strace -f gcc a.c
+
+strace -f gcc a.c 2>&1 | grep execvae | less
+
+ - the main system_call: execve, read, write.
+ - precedure:
+	- cc1 - compiler ( .c --> .s)
+	- as  - assembly ( .s --> .i)
+	- collect2 - collecter ( collect constructor function info)
+	- ld - link.
+
+xedit
+
+	- poll, recvmsg, writev
+	- X-Window server, X11
+	- xedit X11 ssh(X11 forwarding) Host
+
+computer system no magic, just only one thing.
+
+write programs that do one thing and do it well.

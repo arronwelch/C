@@ -1,0 +1,12 @@
+
+Easy Pieces #1: Concurrency
+
+ - Concurrency and Parallelism
+
+ - Concurrency: existing, happening, or done at the same time.
+    In computer science, concurrency refers to the ability of different
+  parts or units of a program, algorithm, or problem to be executed out-of-order
+  or in partial order, without affecting the final outcome.(Wikipedia)
+
+L1: multi-core processer bare-metal malloc/free.
+
