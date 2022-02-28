@@ -10,3 +10,11 @@ Easy Pieces #1: Concurrency
 
 L1: multi-core processer bare-metal malloc/free.
 
+git status
+
+git add note.txt
+
+git commit -m "learn use git command" note.txt
+
+git push -u origin master
+
