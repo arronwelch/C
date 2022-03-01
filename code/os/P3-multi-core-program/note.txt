@@ -16,5 +16,40 @@ git add note.txt
 
 git commit -m "learn use git command" note.txt
 
-git push -u origin master
+git push
+
+
+cpu x 1:
+
+ - process
+   - process's memory space belong to the only one;
+   - *p can't access other process's memery;
+   - root, can't access system core memory.
+ - timer switch between processes.
+
+ - Concurrency : process system API.
+
+write(fd, buf, 1 TiB)
+read(fd, buf, 512 MiB)
+
+ - Thread : multi executable stream concurrency and parallelism, and shared memory at the same time.
+   - .code .static .data .heap
+   - execute order is non-deterministic.
+
+ int x = 0, y = 0; // defaults to 0
+ 
+ void thread_1(){
+  [1] x = 1;
+  [2] printf("y = %d\n", y);
+ }
+
+ void thread_2(){
+  [3] y = 1;
+  [4] printf("x = %d\n");
+}
+
+ - 1 -> 2 -> 3 ->4 (y = 0, x = 1)
+ - 1 -> 3 -> 2 ->4 (y = 1, x = 1)
+ - 1 -> 3 -> 4 ->2 (x = 1, y = 1)
+ ...
 
