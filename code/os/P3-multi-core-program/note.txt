@@ -73,4 +73,5 @@ POSIX Threads:
   (1) pthreads:
      pthreads_create
      pthreads_join
+     man 7 pthreads
      
