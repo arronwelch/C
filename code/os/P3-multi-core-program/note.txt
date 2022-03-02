@@ -53,3 +53,24 @@ read(fd, buf, 512 MiB)
  - 1 -> 3 -> 4 ->2 (x = 1, y = 1)
  ...
 
+extern int x;
+int foo() {
+  int volatile t = x;
+  t += 1;
+  x = t;
+}
+
+gcc -save-temps -c -o foo.o foo.c
+
+cat foo.s
+
+ (1) code and  extern variable: fun foo(), variable x;    ||  share
+ (2) register: rip, rsp, rax;                             ||  only
+ (3) variable: t(stack).                                  ||  only
+
+------------------------------------------------------------------
+POSIX Threads:
+  (1) pthreads:
+     pthreads_create
+     pthreads_join
+     
