@@ -50,4 +50,32 @@ static inline void join(void (*fn)()) {
 
 #include <stdint.h>
 
-// ???
+intptr_t atomic_xchg(volatile intptr_t *addr, intptr_t newval) {
+  // swap( *addr, newval);
+  intptr_t result;
+  asm volatile ( "lock xchg %0, %1": "+m"(*addr), "=a"(result) : "1"(newval) : "cc" );
+  return result;
+}
+
+intptr_t locked = 0;
+
+static inline void lock() {
+  while (1) 
+  {
+    intptr_t value = atomic_xchg(&locked, 1);
+    if (value == 0) {
+      break;
+    }
+  }
+}
+
+static inline void unlock() {
+  atomic_xchg(&locked, 0 );
+}
+
+#include <semaphore.h>
+
+#define P sem_wait
+#define V sem_post
+#define SEM_INIT(sem, val) sem_init(&(sem), 0, val)
+

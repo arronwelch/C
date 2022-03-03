@@ -1,8 +1,12 @@
-int x;
+#include <stdio.h>
+//#include "threads.h"
+#include <threads.h>
 
-void entry(){
-  x = 0;
+void a() { while(1) {  printf("a");} }
+void b() { while(1) {  printf("b");} }
+
+int main() {
+  setbuf(stdout, NULL); // ???
+  create(a);
+  create(b);
 }
-
-pthread_create(entry);
-pthread_create(entry);

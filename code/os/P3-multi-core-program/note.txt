@@ -74,4 +74,14 @@ POSIX Threads:
      pthreads_create
      pthreads_join
      man 7 pthreads
-     
+    
+gcc a.c -I . -l pthread
+ldd a.out
+./a.out
+
+gcc hello-mt.c -I. -lpthread -o hello-mt.out
+ldd hello-mt.out
+./hello-mt.out
+
+
+ 
