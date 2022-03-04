@@ -84,4 +84,7 @@ ldd hello-mt.out
 ./hello-mt.out
 
 
- 
+cat hello-mt.c
+
+vim stack-probe.c
+
