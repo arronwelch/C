@@ -1,0 +1,108 @@
+tool
+
+Finite State Machine(FSM)
+
+G(V,E)
+
+  [work]        [home]       [bed]
+
+  label:
+  (1) take train;
+  (2) sleep;
+  (3) wake;
+
+deterministic
+
+IF StackAddSize = 64 THEN
+  IF OperandSize = 64 THEN
+    RSP <- RSP - 8;
+    Memory[SS:RSP] <- SRC;
+    (* push quadword *)
+  ELSE IF OperandSize = 32 THEN
+    ...
+
+ can be tricky: pushq %rsp
+
+non-deterministic
+ [1] rdtsc/rdtscp
+ [2] rdrand
+    (1) rdrand.c(since Ivy Bridge,2013)
+ [3] syscall
+    (1) normally
+    (2) read(fd, buf, size)
+        return value non-deterministic(-1,0,1,2,...)
+        date from buf(keyboard)
+
+x86-64
+ Ring3
+   (1) purpose register: 
+       rax,rbx,rcx,rdx,rsi,rdi,rbp,rsp
+       r8,r9,r10,r11,r12,r13,r14,r15
+   (2) PC pointer/machine state
+       rip,eflags,cs,ss,ds,es,fs,gs
+   (3) os alloctor: procfs
+
+tool: gdb
+   (1) info registers: list all registers
+   (2) /proc/[pid]/maps: list all memory info
+       minimal.s
+       vvar,vdso,vsyscall
+
+vim minimal.s
+gcc -c minimal.s
+ld minimal.o
+./a.out
+gdb ./a.out
+starti
+info registers 
+info inferiors
+!cat /proc/6230/maps
+x 0x400000
+x/64 0x400000
+
+Quite trivial
+
+local-interactions
+ (1) Conway's game of life
+ (2) What is spacetime,really?
+     - syscall
+     - "Oracle" Turing Machine
+
+superscalar
+insight
+static analyze
+dynamic analyze
+
+[Timer-travel-debugging]
+  time-travel
+  step back
+  record all state to implement time-traceling
+
+ side-effect
+ record diff
+ s0.txt s1.txt
+
+gdb:
+ target record-full
+ record stop
+ reverse-step/reverse-stepi
+
+gcc rdrand.c
+./a.out
+gdb ./a.out
+starti
+b main
+r
+y
+layout asm
+target record-full
+watch $rax
+p $rax
+si
+rsi
+p $rax
+
+[Record & Replay]
+
+
+

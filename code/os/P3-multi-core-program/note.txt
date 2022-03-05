@@ -88,3 +88,42 @@ cat hello-mt.c
 
 vim stack-probe.c
 
+free -m
+
+vim makefile
+make
+
+int x;
+void thread_fun() {
+  int y; // no see in other thread,otherwise pointer strap 
+  x++;   // can see this thread
+}
+
+atomicity
+
+int pay(int meney) 
+{
+  if ( deposit >= money )
+  {
+    deposit -= money;
+    return SUCCESS;
+  }
+  else
+  {
+    return FAIL;
+  }
+}
+
+Dekker's Algorithm
+
+ [1] compiler optimize    : sequence loss
+ [2] interrupt/concurrent : atomicity loss
+ [3] CPU random order     : visibility loss
+
+void delay() {
+  for(volatile int i = 0; i < DELAY_COUNT; i++);
+}
+
+mutual exclusion
+
+The Art of Multiprocessor Programming
