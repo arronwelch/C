@@ -121,3 +121,6 @@ Copy the contents of the to your SSH keys to your GitHub account settings(https:
 
 ssh -T git@github.com
 
+git remote set-url origin git@github.com:arronwelch/C.git
+git config --list
+
