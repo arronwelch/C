@@ -81,6 +81,7 @@ dynamic analyze
  side-effect
  record diff
  s0.txt s1.txt
+ vimdiff s0.txt s1.txt
 
 gdb:
  target record-full
@@ -103,6 +104,26 @@ rsi
 p $rax
 
 [Record & Replay]
+only record non-deterministic side-effect
+syscall, rdrand, rdtsc
+mmio, in, out, rdrand, rdtsc, interrupt,...
+QEMU record/replay
 
+G. Dunlap,et al. ReVirt: Enabling intrucsion analysis through virtual-machine logging and replay.In Proc. of OSDI,2002.
+
+verbose
+lock/unlock
+critical section
+Peterson algorithm
+
+prove by brute borce
+non-trivial
+model checking
+R. Jhale and R.Majumdar. Software model checking.ACM Computing Surveys,41(4),2009.
+
+Take
+fundamental reasoning about
+load/store
+brute force
 
 

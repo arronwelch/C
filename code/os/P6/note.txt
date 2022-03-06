@@ -1,0 +1,114 @@
+mutual exclusion
+lock_t data structure and lock/unlock API
+
+typedef struct {
+  //...
+} lock_t;
+
+void lock(lock_t *lk);
+void unlock(lock_t *lk);
+
+int turn = T1, x = 0, y = 0;
+
+void thread1() {
+  [1] store(x,1); 
+  [2] store(turn, T2);
+spin:
+  [3] t1 = load(y);
+  [4] if(!t1) goto critical_section;
+  [5] t2 = load(turn);
+  [6] if (t2 != T2) goto critical_section;
+  [7] goto spin;
+critical_section:
+  // ...
+}
+
+void thread2() {
+  ...
+}
+
+asm volatile(PREFIX "addq $1, %0":"=m"(sum));
+
+trivial-model-checker.py ???
+
+Further reading: x86-TSO: A rigorous and usable programmer's model for x86 multiprocessors
+
+For some reason, developing locks that work without special hardware support became all the rage
+for a while, giving theory-types a lot of problems to work on. Of cource, this line of work became quite
+useless when people realized it is much easier to assume a little hardware support(and indeed that support
+had been around from the earliest days of multiprocessing). Further, algorithms like the ones above don't
+work in modern hardware(due to relaxed memory consistency models), thus making them even less useful than they were before.Yet more research relegated to the dustbin of history...
+
+void critical_section() {
+  while(1)
+    if(!locked) {
+      locked = 1;
+      break;
+    }
+  //critical_section
+  locked = 0;
+}
+
+test-and-set
+
+cp sum.c sum-atomic.c
+vim sum-atomic.c
+#define PREFIX "lock "
+asm volatile("lock " "addq $1,%0":"=m"(sum));
+vim makefile
+
+all:
+	gcc -I. -O0 sum.c -o sum.out -lpthread
+	gcc -I. -O0 sum-atomic.c -o sum-atomic.out -lpthread
+
+objdump -d ./sum-atomic.out | less
+/do_sum
+
+time ./sum-atomic.out
+
+c++/python
+
+x86 atomic instructure : xchg
+
+int xchg(volatile int *addr, int newval) {
+  int result;
+  asm volatile ("lock xchg %0, %1"
+  : "+m"(*addr), // [%0] addr
+    "=a"(result) // [%1] result (%eax)
+  : "1"(newval)  // [%1]
+  : "cc");       // clobbers eflags
+  return result;
+}
+
+sudo vim /etc/default/locale
+:%s/zh_CN/en_US/g
+
+============================
+int table = KEY;
+void lock() {
+  while(1) {
+    int got = xchg(&table, NOTE);
+    if (got == KEY) break;
+  }
+}
+
+void unlock() {
+  xchg(&table,KEY);
+}
+============================
+
+============================
+int locked = 0;
+void lock() {
+  while(xchg(&locked,1));
+}
+
+void unlock() {
+  xchg(&locked,0);
+}
+============================
+
+vim spinlock.c
+mv spinlock.c sum-lock.c
+
+Load-Reserved/Store-Conditional(LR/SC)
