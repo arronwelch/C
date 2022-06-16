@@ -1,0 +1,3 @@
+The 'z' in %z is a modifier, not a specifier, so it requires a specifier for it to modify. You 
+could use %zd to print the result in base 10 or use a different specifier to print using a 
+different base, for example, %zx for hexadecimal.
