@@ -1,3 +1,8 @@
+// Review Questions 4-1
+
+// Run Listing 4.1 again, but this time give your first and last name when it asks you for
+// your first name. What happens? Why?
+
 // Listing 4.1 The talkback.c Program
 
 // talkback.c -- nosy, information program
@@ -25,18 +30,27 @@ int main(void)
 	return 0;
 }
 
-/*
+/***********************************
+$ gcc 1.c
+$ ./a.out
 
-gcc 1.c
-./a.out
+[pass] test input:
+$ Lasha 144
 
-test input:
-Lasha 144
+[pass] test output:
+$ Lasha, what's your weight in pounds?
+$ Well, Lasha, your volume is 2.31 cubic feet.
+$ Also, your first name has 5 letters,
+$ and we have 40 bytes to store it.
+***********************************/
 
-test output:
-Lasha, what's your weight in pounds?
-Well, Lasha, your volume is 2.31 cubic feet.
-Also, your first name has 5 letters,
-and we have 40 bytes to store it.
+/***********************************
+[fail] test input:
+$ Lasha Lisa
 
-*/
+[fail] test output:
+
+
+
+
+***********************************/
