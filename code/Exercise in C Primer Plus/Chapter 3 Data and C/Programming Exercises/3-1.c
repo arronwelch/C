@@ -11,19 +11,14 @@
 
 int main(void)
 {
-	//integer overflow
-	int i = INT_MAX + 1;
-	printf("%d\n", i);
+	printf("Maximum int value on this system = %+d\n", INT_MAX);
+	printf("Integer overflow: %d + 1 = %+d\n\n", INT_MAX, INT_MAX + 1);
 
-	//floating-point overflow
-	//float fo = DBL_MAX;
-	float fo = FLT_MAX * 10;
-	printf("%f\n", fo);
+	printf("Maximun float value on this system = %e\n", FLT_MAX);
+	printf("Floating-point overflow: %e * 10 = %e\n\n", FLT_MAX, FLT_MAX * 10);
 
-	//floating-point underflow
-	//float fu = DBL_MIN;
-	float fu = FLT_MIN / 10;
-	printf("%f\n", fu);
+	printf("Minimum float value on this system = %e\n", FLT_MIN);
+	printf("Floating-point underflow: %e / 10 = %e\n", FLT_MIN, FLT_MIN / 10);
 
 	return 0;
 }

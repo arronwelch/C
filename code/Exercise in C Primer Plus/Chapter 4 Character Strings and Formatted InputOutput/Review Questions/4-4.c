@@ -1,3 +1,22 @@
+/* Review Questions 4.4 */
+
+// It's find the error time!
+
+// 1 define B booboo
+// 2 define X 10
+// 3 main(int)
+// 4 {
+// 5	int age;
+// 6	char name;
+// 7	printf("Please enter your first name.");
+// 8	scanf("%s", name);
+// 9	printf("All right, %c, what's your age?\n", name);
+// 10	scanf("%f", age);
+// 11	xp = age + X;
+// 12	printf("That's a %s! You must be at least %d.\n", B, xp);
+// 13	rerun 0;
+// 14 }
+
 #include <stdio.h>		/* don't forget this 		*/
 #define B "booboo"		/* add #, quotes			*/
 #define X 10			/* add #					*/

@@ -49,8 +49,8 @@ $ and we have 40 bytes to store it.
 $ Lasha Lisa
 
 [fail] test output:
-
-
-
-
+$ Lasha, what's your weight in pounds?
+$ Well, Lasha, your volume is 0.00 cubic feet. [NOTE]: this is error!!!
+$ Also, your first name has 5 letters,
+$ and we have 40 bytes to store it.
 ***********************************/
