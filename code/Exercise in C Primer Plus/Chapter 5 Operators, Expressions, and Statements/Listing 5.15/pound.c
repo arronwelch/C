@@ -2,6 +2,8 @@
 
 /* pound.c -- defines a function with an argument */
 
+#include <stdio.h>
+
 void pound(int n);	// ANSI function prototype declaration
 
 int main(void)
@@ -17,8 +19,8 @@ int main(void)
 	return 0;
 }
 
-void pound(int n)	//ANSI-style function header
-{
+void pound(int n)	// ANSI-style function header
+{					// says takes one int argument
 	while (n-- > 0)
 		printf("#");
 	printf("\n");
