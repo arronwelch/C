@@ -68,4 +68,7 @@ int main(void)
 		printf("Next input?\n");
 		scanf("%d", &sec);
 	}
+	The first time through, the scanf() outside the loop is used. Thereafter, the scanf()
+    at the end of the loop(and hence just bofore the loop begins again) is used. This is a
+    common method for handling problems of this sort, which is why Listing 5.9 used it.
  */
