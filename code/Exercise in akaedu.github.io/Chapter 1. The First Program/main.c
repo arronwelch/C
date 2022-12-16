@@ -17,6 +17,6 @@ $ ./a.out
 $ gcc main.c -o main
 $ ./main
 
-$ gcc -Wall main.c
+$ gcc -Wall main.c // only work for x86 gcc, not macos m1 arm64
 
 */
