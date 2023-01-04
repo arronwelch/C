@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define N 20
+#define N 20 // Preprocess
 
 int a[N];
 
