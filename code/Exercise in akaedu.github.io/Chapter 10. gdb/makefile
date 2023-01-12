@@ -1,8 +1,9 @@
 all:
-	gcc -g main.c -o main
-	gcc -g fact.c -o fact
-	gcc -g brkpt.c -o brkpt
+	gcc -g main.c -o main.out
+	gcc -g fact.c -o fact.out
+	gcc -g brkpt.c -o brkpt.out
+	gcc -g test.c -o test.out
 
 clean:
-	rm -f main fact brkpt
+	rm -f *.out
 
