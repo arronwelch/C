@@ -30,5 +30,30 @@ int main(void)
 }
 
 /*
+ * 10, 7, 5, 4, 2
+ * 7, 10, 5, 4, 2 m = 1
+ * 5, 7, 10, 4, 2 m = 2
+ * 4, 5, 7, 10, 2 m = 3
+ * 2, 4, 5, 7, 10 m = 4
+ */
+
+/*
  * time = (n-1)*(c1+c2+c5+m*(c3+c4))
+ * Best Case:
+ * 	m = 0
+ * 	time = (c1+c2+c5)*n - (c1+c2+c5)
+ * 	time = a*n + b // Linear Function with n
+ * Worst Case:
+ * 	m = 1+2+3+...+(n-1)
+ * 	time = (n-1)*(c1+c2+c5+m*(c3+c4))
+ * 	time = a*n*n + b*n + c // Quadratic Function with n
+ * Average Case:
+ * 	m = (1+2+3+...+(n-1))/2
+ * 	time = (n-1)*(c1+c2+c5+m*(c3+c4))
+ * 	time = a*n*n + b*n + c // Quadratic Function with n
+ * O-notation(low -> high):
+ * 	O(lgn), O(sqrt(n)), O(n), O(nlgn), O(n^2), O(n^3), O(2^n), O(n!)
+ * Big-O notation:
+ * 	O-notation is equal to, Big-O-notation is equal to and less than
+ * Upper Bound is constant
  */
