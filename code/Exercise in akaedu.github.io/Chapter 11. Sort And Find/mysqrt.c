@@ -6,15 +6,18 @@
 double mysqrt(double y)
 {
 	assert(y > 0);
-	double x = y/2;
+	double d = 0, x = 0;
+	x = d = y / 2;
 	while ( x*x - y >= 0.001 || x*x - y <= -0.001 )
 	{
+		printf("x = %f\n", x);
 		if (x*x < y)
-			x += x/2;
+			x += d/2;
 		else if (x*x > y)
-			x -= x/2;
+			x -= d/2;
 		else
 			break;
+		d = d/2;
 	}
 	return x;
 }
