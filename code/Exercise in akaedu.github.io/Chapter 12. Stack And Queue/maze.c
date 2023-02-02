@@ -84,14 +84,26 @@ int main(void)
 			visit(p.row-1, p.col, p);
 		print_maze();
 	}
+
+	int cnt = 0;
 	if (p.row == MAX_ROW - 1 && p.col == MAX_COL -1) {
-		printf("(%d, %d)\n", p.row, p.col);
+		//printf("(%d, %d)\n", p.row, p.col);
+		push(p);
+		cnt++;
 		while (predecessor[p.row][p.col].row != -1) {
 			p = predecessor[p.row][p.col];
-			printf("(%d, %d)\n", p.row, p.col);
+			push(p);
+			cnt++;
+			//printf("(%d, %d)\n", p.row, p.col);
 		}
 	} else
 		printf("No path!\n");
+
+	while(cnt--)
+	{
+		p = pop();
+		printf("(%d, %d)\n", p.row, p.col);
+	}
 
 	return 0;
 }
