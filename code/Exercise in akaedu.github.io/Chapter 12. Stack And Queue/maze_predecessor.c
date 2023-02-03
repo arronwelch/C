@@ -1,4 +1,4 @@
-/* maze.c */
+/* maze_predecessor.c */
 
 #include <stdio.h>
 
@@ -42,19 +42,19 @@ void print_maze(void)
 	printf("*********\n");
 }
 
-struct point predecessor[MAX_ROW][MAX_COL] = {
-	{{-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}},
-	{{-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}},
-	{{-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}},
-	{{-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}},
-	{{-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}},
+int predecessor[MAX_ROW*MAX_COL] = {
+	-1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1,
 };
 
 void visit(int row, int col, struct point pre)
 {
 	struct point visit_point = { row, col };
 	maze[row][col] = 2;
-	predecessor[row][col] = pre;
+	predecessor[row*MAX_ROW+col] = pre.row*MAX_ROW+pre.col;
 	push(visit_point);
 }
 
@@ -84,14 +84,27 @@ int main(void)
 			visit(p.row-1, p.col, p);
 		print_maze();
 	}
+
+	int cnt = 0, pos;
 	if (p.row == MAX_ROW - 1 && p.col == MAX_COL -1) {
-		printf("(%d, %d)\n", p.row, p.col);
-		while (predecessor[p.row][p.col].row != -1) {
-			p = predecessor[p.row][p.col];
-			printf("(%d, %d)\n", p.row, p.col);
+		//printf("(%d, %d)\n", p.row, p.col);
+		push(p);
+		cnt++;
+		while ((pos = predecessor[p.row*MAX_ROW+p.col]) != -1) {
+			p.row = pos/MAX_ROW;
+			p.col = pos%MAX_ROW;
+			push(p);
+			cnt++;
+			//printf("(%d, %d)\n", p.row, p.col);
 		}
 	} else
 		printf("No path!\n");
+
+	while(cnt--)
+	{
+		p = pop();
+		printf("(%d, %d)\n", p.row, p.col);
+	}
 
 	return 0;
 }
