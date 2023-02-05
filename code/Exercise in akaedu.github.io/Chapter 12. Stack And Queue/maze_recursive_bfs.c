@@ -1,4 +1,4 @@
-/* maze_successor.c */
+/* maze_recursive_bfs.c */
 
 #include <stdio.h>
 
