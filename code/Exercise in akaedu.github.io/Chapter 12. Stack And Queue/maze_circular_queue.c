@@ -16,6 +16,7 @@
  *		(tail + 1) % MAX_LEN_QUE == front
  *	5).size():
  *		(tail + MAX_LEN_QUE - front) % MAX_LEN_QUE
+ *
  * 2. BFS(Breadth First Search) with Queue
  */
 
@@ -23,7 +24,8 @@
 
 #define MAX_ROW 5
 #define MAX_COL 5
-#define MAX_LEN_QUE (MAX_ROW * MAX_COL)
+//#define MAX_LEN_QUE (MAX_ROW * MAX_COL)
+#define MAX_LEN_QUE (5) // at least need 5 size to save element
 
 struct point { int row, col; } queue[MAX_LEN_QUE];
 int head = 0, tail = 0;
@@ -41,7 +43,10 @@ int is_full()
 void enqueue(struct point p)
 {
 	if (is_full())
+	{
+		printf("queue is full!\n");
 		return;
+	}
 
 	queue[tail] = p;
 	tail = (tail + 1) % MAX_LEN_QUE;
