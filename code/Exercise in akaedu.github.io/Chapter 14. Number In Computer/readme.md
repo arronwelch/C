@@ -14,3 +14,14 @@
 	2. Overflow;
 	3. 1's Complement;
 	4. 2's Complement;
+	5. Signed Number, Unsigned Number;
+	6. Carry Flag, Over Flag, Zero Flag, Negative Flag;
+	7. Overflow, Underflow;
+# 4. Floating number
+	0. Scientific Notation;
+	1. Mantissa/Significand, Exponent, Radix;
+	2. 1 bit sign bit, 5 bits exponent, 8 bits significand;
+	3. Biased Exponent, Normalize, Implied;
+	4. Significance Loss;
+	5. IEEE(Institute of Electrical and Electronics Engineers) IEEE 754
+	6. C99 Rationale: 6.7.8:25: As far as the committee knows, all machines treat all bits zero as a representation of floating-point zero. But, all bits zero might not be the canonical representation of zero.
