@@ -10,14 +10,14 @@ int countbit(unsigned int x)
 	while(x)
 	{
 		if (x & 0x01) cnt++;
-		x = x >> 1;
+		x >>= 1;
 	}
 	return cnt;
 }
 
 int main(void)
 {
-	unsigned int data = 0x52;
+	unsigned int data = 0b11010110;
 	printf("0x%02x 1'cnt = %d\n", data, countbit(data));
 
 	return 0;

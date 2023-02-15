@@ -1,5 +1,4 @@
-/* bit_operator.c
- */
+/* bit_operator.c */
 
 #include <stdio.h>
 
