@@ -9,6 +9,9 @@
 An example of data striping. Files A and B, of four blocks each are spread over disks D1 to D3
 
 ## RAID 1(consists of data mirroring, without parity or striping)
+Hard disk drive performance characteristics
+	- Seek time
+	- Rotational latency
 
 ## RAID 2(consists of bit-level striping with dedicated Hamming-code parity)
 
