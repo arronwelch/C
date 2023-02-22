@@ -12,6 +12,8 @@ An example of data striping. Files A and B, of four blocks each are spread over 
 Hard disk drive performance characteristics
 	- Seek time
 	- Rotational latency
+	- Command processing time
+	- Settle time
 
 ## RAID 2(consists of bit-level striping with dedicated Hamming-code parity)
 
