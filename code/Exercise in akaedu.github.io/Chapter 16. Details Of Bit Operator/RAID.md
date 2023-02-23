@@ -16,4 +16,4 @@ Hard disk drive performance characteristics
 	- Settle time
 
 ## RAID 2(consists of bit-level striping with dedicated Hamming-code parity)
-
+	Hamming-code parity
