@@ -17,3 +17,6 @@ Hard disk drive performance characteristics
 
 ## RAID 2(consists of bit-level striping with dedicated Hamming-code parity)
 	Hamming-code parity
+
+## RAID 3(consists of byte-level striping with dedicated parity)
+	All disk spindle rotation is synchronized and data is striped such that each sequential byte is on a different drive.
