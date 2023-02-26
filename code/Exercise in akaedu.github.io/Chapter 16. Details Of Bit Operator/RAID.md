@@ -20,3 +20,6 @@ Hard disk drive performance characteristics
 
 ## RAID 3(consists of byte-level striping with dedicated parity)
 	All disk spindle rotation is synchronized and data is striped such that each sequential byte is on a different drive.
+
+## RAID 4(consists of block-level striping with dedicated parity)
+	RAID-DP
