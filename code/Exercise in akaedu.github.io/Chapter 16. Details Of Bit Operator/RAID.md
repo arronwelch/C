@@ -23,3 +23,5 @@ Hard disk drive performance characteristics
 
 ## RAID 4(consists of block-level striping with dedicated parity)
 	RAID-DP
+
+## RAID 5(consists of block-level striping with distributed parity)
