@@ -27,3 +27,5 @@ Hard disk drive performance characteristics
 ## RAID 5(consists of block-level striping with distributed parity)
 
 ## RAID 6(consists of block-level striping with double distributed parity)
+
+## Nested(hybrid) RAID
