@@ -43,6 +43,10 @@
 	Type Capacity  |         |  Access Time
 	 100GB~1TB      Hard Disk       3 ~  15 ms
 	 100MB~1GB      Memory        100 ~ 150 ns
-	 100KB~1MB      Cache2         40 ~  60 ns
-	  10KB~100KB    Cache1          5 ~  10 ns
+	 100KB~1MB      L2 Cache       40 ~  60 ns
+	  10KB~100KB    L1 Cache        5 ~  10 ns
 	  10KB~100B     Register        1ns
+
+	Flip-flop, RAM(Random Access Memory), Cache-SRAM(Static RAM), Memory-DRAM(Dynamic RAM)
+	Cache Line : 32 ~ 256 Bytes; Amortize; Volatile Memory; Non-volatile Memory;
+	Locality;
