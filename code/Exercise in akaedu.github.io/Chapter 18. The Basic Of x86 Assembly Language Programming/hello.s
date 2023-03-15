@@ -34,3 +34,6 @@ _start:         # Symbol : Address
 
 # as hello.s -o hello.o # Assembler
 # ld hello.0 -o hello   # Linker
+# ./hello
+# echo $?
+# objdump -S hello.o > hello.objdump.s
