@@ -47,5 +47,7 @@ loop_exit:
 # echo $?
 # 222
 # objdump -d max.o
-# readelf -a max
+# readelf -a max.o
 # hexdump -C max.o
+# objdump -d max
+# readelf -a max
