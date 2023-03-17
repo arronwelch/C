@@ -36,4 +36,4 @@ _start:         # Symbol : Address
 # ld hello.0 -o hello   # Linker
 # ./hello
 # echo $?
-# objdump -S hello.o > hello.objdump.s
+# objdump -D hello.o > hello.objdump.s

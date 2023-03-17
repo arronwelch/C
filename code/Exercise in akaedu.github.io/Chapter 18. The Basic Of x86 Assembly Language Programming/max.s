@@ -46,3 +46,6 @@ loop_exit:
 # ./max
 # echo $?
 # 222
+# objdump -d max.o
+# readelf -a max
+# hexdump -C max.o
