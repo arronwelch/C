@@ -5,6 +5,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int bar(int c, int d)
 {
@@ -20,5 +21,6 @@ int foo(int a, int b)
 int main(void)
 {
 	foo(2, 3);
-	return 0;
+//	return 0;
+	exit(-1);
 }

@@ -56,3 +56,6 @@ readelf /usr/lib/crti.o
 nm /usr/lib/crt1.o
 nm /usr/lib/crti.o
 ```
+# U - Undefined
+# Symbol Resolution - Link Editor
+# T - Text
