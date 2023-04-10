@@ -1,6 +1,4 @@
-# 3. the second assembly program
-
-## Addressing Mode
+# 4. Addressing Mode
 ```
 ADDRESS_OR_OFFSET(%BASE_OR_OFFSET,%INDEX,MULTIPLIER)
         |                 |          |        |
