@@ -19,8 +19,3 @@ FINAL_ADDRESS=ADDRESS_OR_OFFSET+BASE_OR_OFFSET+MULTIPLIER*INDEX
    movl $12, %eax
 ## Register Addressing Mode
    movl $12, %eax
-
-## ELF(Executable and Linkable Format)
-	- Relocatable, or Object File
-	- Executable
-	- Shared Object, Shared Library
