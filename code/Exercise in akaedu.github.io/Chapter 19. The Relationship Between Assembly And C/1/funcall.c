@@ -21,6 +21,6 @@ int foo(int a, int b)
 int main(void)
 {
 	foo(2, 3);
-//	return 0;
-	exit(-1);
+	return 0;
+//	exit(-1);
 }
