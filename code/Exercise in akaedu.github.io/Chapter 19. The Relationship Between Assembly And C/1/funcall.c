@@ -1,6 +1,6 @@
 /*
  * function call
- * $ gcc main.c -g
+ * $ gcc *.c -g
  * $ objdump -dS a.out | less
  */
 

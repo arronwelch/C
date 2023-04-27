@@ -3,7 +3,7 @@
 	.globl	bar
 	.type	bar, @function
 bar:
-.LFB0:
+.LFB6:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -21,12 +21,12 @@ bar:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE0:
+.LFE6:
 	.size	bar, .-bar
 	.globl	foo
 	.type	foo, @function
 foo:
-.LFB1:
+.LFB7:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -45,12 +45,12 @@ foo:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE1:
+.LFE7:
 	.size	foo, .-foo
 	.globl	main
 	.type	main, @function
 main:
-.LFB2:
+.LFB8:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -65,7 +65,7 @@ main:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE2:
+.LFE8:
 	.size	main, .-main
 	.ident	"GCC: (GNU) 8.5.0 20210514 (Red Hat 8.5.0-4)"
 	.section	.note.GNU-stack,"",@progbits
